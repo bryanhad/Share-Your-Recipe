@@ -18,11 +18,18 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
                     <ArrayToCommasString
                         arrayOfStrings={recipe.methods}
                         maxCharacters={100}
-                        className="font-[400] text-xl"
+                        className="font-[400] text-lg"
                     />
                 </div>
             </span>
-            <Button href={`/recipes/${recipe.id}`} className="mt-5">Cook This</Button>
+            <Button
+                type="link"
+                style="fill"
+                href={`/recipes/${recipe.id}`}
+                className="mt-5 px-6 py-2 font-semibold"
+            >
+                Cook This
+            </Button>
         </ThemedContainer>
     )
 }

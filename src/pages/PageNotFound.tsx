@@ -31,7 +31,7 @@ export default function PageNotFound() {
                     there is an error somewhere. Welp, either way you can always
                     go back to home!
                 </p>
-                <Button href="/" className="mt-4">
+                <Button type='link' href="/" style="fill" className="mt-4 mx-auto px-8 py-2">
                     HOME
                 </Button>
             </ThemedContainer>

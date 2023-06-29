@@ -47,8 +47,19 @@ export default function Home() {
             {loading && <Loading />}
             {recipes.length === 0 && (
                 <div className="flex flex-col items-center mt-12">
-                    <Title type='normal' text="Be the first one to post!" className="mb-8 text-3xl" />
-                    <Button href="/create">Create Recipe</Button>
+                    <Title
+                        type="normal"
+                        text="Be the first one to post!"
+                        className="mb-8 text-3xl"
+                    />
+                    <Button
+                        type="link"
+                        style="fill"
+                        href="/create"
+                        className="px-3 py-2 text-xl sm:text-2xl"
+                    >
+                        Create Recipe
+                    </Button>
                 </div>
             )}
             {recipes && (

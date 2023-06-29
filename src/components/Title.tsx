@@ -1,20 +1,37 @@
 import { useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
 import useTextColor from "../hooks/useTextColor"
+import { Link } from "react-router-dom"
 
 export default function Title({
     text,
     className,
     type,
+    href,
 }: {
     text: string
     className?: string
-    type: "normal" | "colorful" | "recipeTitle" | "colorfulRecipeTitle"
+    type: "normal" | "colorful" | "recipeTitle" | "colorfulRecipeTitle" | "link"
+    href?: string
 }) {
     const { state } = useContext(ThemeContext)
     const { textColor } = useTextColor()
 
     switch (type) {
+        case "link": {
+            if (href) {
+                return (
+                    <Link to={href}>
+                        <h1 className={` ${className}`}>
+                            ShareNCook!
+                        </h1>
+                    </Link>
+                )
+            } else {
+                return <h1 className="text-rose-500 font-bold">Please specify the href!</h1>
+            }
+        }
+
         case "colorful":
             return (
                 <h1
@@ -74,6 +91,6 @@ export default function Title({
                 </h1>
             )
         default:
-            return <h1>please specify the type</h1>
+            return <h1 className="text-rose-500 font-bold">please specify the type</h1>
     }
 }

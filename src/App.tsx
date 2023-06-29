@@ -6,7 +6,6 @@ import {
     Navigate,
 } from "react-router-dom"
 import Home from "./pages/Home.tsx"
-import About from "./pages/About.tsx"
 import RootLayout from "./layout/RootLayout.tsx"
 import DogImage, { dogLoader } from "./pages/DogImage.tsx"
 import PageNotFound from "./pages/PageNotFound.tsx"
@@ -20,7 +19,6 @@ import Register from "./pages/Register.tsx"
 
 export default function App() {
     const {state:{currentUser}} = useContext(CurrentUserContext)
-    console.log(currentUser)
 
     const RequireAuth = ({ children }: { children: React.ReactElement }) => {
         return currentUser ? children : <Navigate to={"/login"} />
@@ -31,7 +29,6 @@ export default function App() {
             <Route path="/" element={<RootLayout />}>
                 <Route index element={<Home />} />
 
-                <Route path="about" element={<About />} />
                 <Route path="dog" element={<DogImage />} loader={dogLoader} />
                 <Route
                     path="create"

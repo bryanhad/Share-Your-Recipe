@@ -80,7 +80,11 @@ export default function Create() {
                     : "text-slate-500"
             }`}
         >
-            <Title type="normal" text="Add a New Recipe" />
+            <Title
+                type="colorful"
+                className="text-2xl sm:text-3xl"
+                text="Add a New Recipe"
+            />
             <form
                 onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -89,7 +93,7 @@ export default function Create() {
                     }
                 }}
                 onSubmit={handleSubmit}
-                className="w-full flex flex-col gap-3 items-center"
+                className="w-full flex flex-col gap-3 items-center mt-6"
             >
                 <span className="flex flex-col gap-0.5 sm:gap-1 sm:text-xl w-full">
                     <label className=" cursor-pointer" htmlFor="recipe">
@@ -196,9 +200,11 @@ export default function Create() {
                         ></input>
                         <Button
                             type="button"
+                            style="fill"
                             onclick={() => {
                                 handleAddMethod()
                             }}
+                            className="px-8"
                         >
                             add
                         </Button>
@@ -263,7 +269,11 @@ export default function Create() {
                     />
                 </span>
 
-                <Button type="submit" className="mt-8">
+                <Button
+                    type="submit"
+                    style="fill"
+                    className="mt-8 px-12 py-4 font-semibold"
+                >
                     Submit
                 </Button>
             </form>

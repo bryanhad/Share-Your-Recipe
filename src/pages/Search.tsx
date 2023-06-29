@@ -33,7 +33,6 @@ export default function Search() {
                         where("title", "==", queryTerm)
                     )
                     const snapshot = await getDocs(q)
-                    console.log(snapshot)
                     snapshot.forEach((doc) => {
                         const recipeObj = {
                             id: doc.id,
