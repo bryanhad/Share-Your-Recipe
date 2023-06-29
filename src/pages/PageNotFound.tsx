@@ -11,7 +11,7 @@ export default function PageNotFound() {
     const { state } = useContext(ThemeContext)
 
     return (
-        <div className="text-center">
+        <div className="text-center mt-8">
             <span
                 className={`flex justify-center text-8xl items-center ${
                     state.theme === "dark" ? "text-gray-400" : textColor
@@ -19,21 +19,19 @@ export default function PageNotFound() {
             >
                 <RiEmotionSadLine />
                 <Title
-                    className={`text-8xl ${
-                        state.theme === "dark" ? "text-gray-400" : textColor
-                    }`}
-                >
-                    404
-                </Title>
+                    type="colorful"
+                    text="404"
+                    className='text-8xl'
+                />
             </span>
-            <ThemedContainer>
+            <ThemedContainer className="max-w-[75%] flex flex-col gap-3 mt-4">
                 <h2 className="font-semibold text-xl mb-1">Page not found</h2>
                 <p>
                     Seems like the page you are looking for doesn't exist. Or...
                     there is an error somewhere. Welp, either way you can always
                     go back to home!
                 </p>
-                <Button href="/" extraStyling="mt-4">
+                <Button href="/" className="mt-4">
                     HOME
                 </Button>
             </ThemedContainer>

@@ -9,6 +9,7 @@ import ErrorMessage from "../components/ErrorMessage"
 import { getErrorMessage } from "../lib/getErrorMessage"
 import Loading from "../components/Loading"
 import RecipeCard from "../components/RecipeCard"
+import NothingFound from "../components/NothingFound"
 
 export default function Search() {
     const [searchParams] = useSearchParams()
@@ -23,6 +24,7 @@ export default function Search() {
             setLoading(true)
             if (!queryTerm) {
                 setError("Please enter some query in the URL!")
+                setLoading(false)
             } else {
                 try {
                     const recipesArr: RecipeType[] = []
@@ -31,6 +33,7 @@ export default function Search() {
                         where("title", "==", queryTerm)
                     )
                     const snapshot = await getDocs(q)
+                    console.log(snapshot)
                     snapshot.forEach((doc) => {
                         const recipeObj = {
                             id: doc.id,
@@ -53,11 +56,21 @@ export default function Search() {
         getQueriedDocumentsSnapshot()
     }, [queryTerm])
 
+
+
     return (
         <div>
-            <Title className="text-center mb-3">Recipes including "{queryTerm}"</Title>
+            <Title
+                type="normal"
+                className="text-center mb-3 text-3xl"
+                text={`Recipes including "${queryTerm}"`}
+            />
             {error && <ErrorMessage errorMessage={error} />}
-            {loading && <Loading />}
+            {loading ? (
+                <Loading className="mt-12" />
+            ) : (
+                <>{recipes.length === 0 && <NothingFound item={queryTerm} />}</>
+            )}
             {recipes && (
                 <div className="flex flex-wrap justify-center gap-8">
                     {recipes.map((recipe) => (

@@ -45,7 +45,7 @@ export default function Create() {
                 value:
                     e.target.name === "cookingTime"
                         ? parseFloat(e.target.value)
-                        : e.target.value,
+                        : e.target.value.toLocaleLowerCase(),
             },
         })
     }
@@ -54,7 +54,7 @@ export default function Create() {
         if (methodRef.current) {
             dispatch({
                 type: "ADD_METHOD",
-                payload: methodRef.current.value,
+                payload: methodRef.current.value.toLocaleLowerCase(),
             })
             methodRef.current.value = ""
         }

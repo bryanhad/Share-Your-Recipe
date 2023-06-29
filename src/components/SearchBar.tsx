@@ -7,13 +7,14 @@ export default function SearchBar({
 }: {
     direction: "left" | "right"
 }) {
-    const [term, setTerm] = useState("")
+    const [term, setTerm] = useState<string | null>(null)
     const navigate = useNavigate()
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
-
-        navigate(`/search?q=${term}`)
+        if (term) {
+            navigate(`/search?q=${term.toLocaleLowerCase()}`)
+        }
     }
 
     return (
