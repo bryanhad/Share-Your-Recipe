@@ -1,0 +1,53 @@
+{
+  "recipes": [
+    {
+      "id": "1",
+      "title": "Veggie Stew",
+      "ingredients": [
+        "1 Carrot",
+        "1 Carrot",
+        "1 Carrot",
+        "1 Carrot"
+      ],
+      "method": "1Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias magni officiis nostrum quis voluptatibus maiores. Laborum, ab eum, aliquid nam nihil, magnam sed autem libero ipsum doloribus alias aperiam tempore?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias magni",
+      "cookingTime": "45 minutes"
+    },
+    {
+      "id": "2",
+      "title": "Fried Rice",
+      "ingredients": [
+        "1 Carrot",
+        "1 Carrot",
+        "1 Carrot",
+        "1 Carrot"
+      ],
+      "method": "1Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias magni officiis nostrum quis voluptatibus maiores. Laborum, ab eum, aliquid nam nihil, magnam sed autem libero ipsum doloribus alias aperiam tempore?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias magni",
+      "cookingTime": "45 minutes"
+    },
+    {
+      "id": "3",
+      "title": "Ham Sandwich",
+      "ingredients": [
+        "1 Carrot",
+        "1 Carrot",
+        "1 Carrot",
+        "1 Carrot"
+      ],
+      "method": "1Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias magni officiis nostrum quis voluptatibus maiores. Laborum, ab eum, aliquid nam nihil, magnam sed autem libero ipsum doloribus alias aperiam tempore?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias magni",
+      "cookingTime": "45 minutes"
+    },
+    {
+      "title": "nasi groeng",
+      "method": "aea",
+      "cookingTime": "12 minutes",
+      "ingredients": [
+        "nasi",
+        "garlic",
+        "kecap",
+        "kucing",
+        "bebek"
+      ],
+      "id": "EfXiDDz"
+    }
+  ]
+}
