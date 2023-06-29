@@ -27,7 +27,7 @@ export default function NothingFound({item}:{item:string | null}) {
                 <p>
                     Seems like the recipe you are looking for doesn't exist. Welp, you can always create one!
                 </p>
-                <Button href="/create" className="mt-4 max-w-max mx-auto">
+                <Button style="fill" type="link" href="/create" className="px-8 py-3 mt-4 max-w-max mx-auto">
                     CREATE
                 </Button>
             </ThemedContainer>
