@@ -5,20 +5,21 @@ import {
     RouterProvider,
     Navigate,
 } from "react-router-dom"
-import Home from "./pages/Home.tsx"
+import Home, { recipesLoader } from "./pages/Home.tsx"
 import RootLayout from "./layout/RootLayout.tsx"
-import DogImage, { dogLoader } from "./pages/DogImage.tsx"
 import PageNotFound from "./pages/PageNotFound.tsx"
 import RecipeDetail from "./pages/RecipeDetail.tsx"
 import Create from "./pages/Create.tsx"
 import Search from "./pages/Search.tsx"
 import Login from "./pages/Login.tsx"
-import {useContext} from 'react'
+import { useContext } from "react"
 import { CurrentUserContext } from "./context/CurrentUserContext.tsx"
 import Register from "./pages/Register.tsx"
 
 export default function App() {
-    const {state:{currentUser}} = useContext(CurrentUserContext)
+    const {
+        state: { currentUser },
+    } = useContext(CurrentUserContext)
 
     const RequireAuth = ({ children }: { children: React.ReactElement }) => {
         return currentUser ? children : <Navigate to={"/login"} />
@@ -27,9 +28,8 @@ export default function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout />}>
-                <Route index element={<Home />} />
+                <Route index element={<Home />} loader={recipesLoader}/>
 
-                <Route path="dog" element={<DogImage />} loader={dogLoader} />
                 <Route
                     path="create"
                     element={
@@ -48,7 +48,7 @@ export default function App() {
                 </Route>
 
                 <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register/>}/>
+                <Route path="register" element={<Register />} />
 
                 <Route path="*" element={<PageNotFound />} />
             </Route>

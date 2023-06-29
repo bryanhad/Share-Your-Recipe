@@ -3,7 +3,7 @@ import { ThemeContext } from "../context/ThemeContext"
 import { Link } from "react-router-dom"
 
 type ButtonProps = {
-    type?: "button" | "submit" | "link"
+    type: "button" | "submit" | "link"
     onclick?: () => void
     children: string
     className?: string
