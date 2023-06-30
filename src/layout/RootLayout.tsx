@@ -11,7 +11,7 @@ export default function RootLayout() {
                 state.theme === "dark" ? "bg-gray-600" : "bg-slate-100"
             }`}
         >
-            <Navbar />
+            <Navbar className="sticky top-0 z-[10]"/>
             <main className="max-w-[1200px] w-full mx-auto p-6 flex-[1]">
                 <Outlet />
             </main>

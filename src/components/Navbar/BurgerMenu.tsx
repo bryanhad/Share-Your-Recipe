@@ -4,13 +4,14 @@ import ChangeThemeIcon from "./ChangeThemeIcon"
 import ChangeColorsButtons from "./ChangeColorsButtons"
 import { useContext } from "react"
 import { ThemeContext } from "../../context/ThemeContext"
+import Profile_Login_SignUp from "./Profile-Login-SignUp"
 
 
 export default function BurgerMenu({navState}:{navState:boolean}) {
     const { state, dispatch } = useContext(ThemeContext)
     return (
         <div
-            className={`block md:hidden duration-300 w-full ${
+            className={`block lg:hidden duration-300 w-full overflow-hidden pr-3  ${
                 navState ? "max-h-[220px]" : "max-h-[0px]"
             }`}
         >
@@ -28,6 +29,7 @@ export default function BurgerMenu({navState}:{navState:boolean}) {
                     <ChangeColorsButtons className="flex gap-4"/>
                     <ChangeThemeIcon themeState={state.theme} onClick={() => dispatch({type:'CHANGE_THEME'})}/>
                 </div>
+                <Profile_Login_SignUp/>
             </div>
         </div>
     )

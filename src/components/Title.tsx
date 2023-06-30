@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
-import useTextColor from "../hooks/useTextColor"
+import useThemeColor from "../hooks/useThemeColor"
 import { Link } from "react-router-dom"
 
 export default function Title({
@@ -15,20 +15,22 @@ export default function Title({
     href?: string
 }) {
     const { state } = useContext(ThemeContext)
-    const { textColor } = useTextColor()
+    const { themeColor } = useThemeColor()
 
     switch (type) {
         case "link": {
             if (href) {
                 return (
                     <Link to={href}>
-                        <h1 className={` ${className}`}>
-                            ShareNCook!
-                        </h1>
+                        <h1 className={` ${className}`}>{text}</h1>
                     </Link>
                 )
             } else {
-                return <h1 className="text-rose-500 font-bold">Please specify the href!</h1>
+                return (
+                    <h1 className="text-rose-500 font-bold">
+                        Please specify the href!
+                    </h1>
+                )
             }
         }
 
@@ -36,7 +38,9 @@ export default function Title({
             return (
                 <h1
                     className={`font-bold text-center ${
-                        state.theme === "dark" ? "text-slate-300" : textColor
+                        state.theme === "dark"
+                            ? "text-slate-300"
+                            : themeColor.text
                     } ${className}`}
                 >
                     {text}
@@ -77,7 +81,9 @@ export default function Title({
             return (
                 <h1
                     className={`font-bold text-center ${
-                        state.theme === "dark" ? "text-slate-300" : textColor
+                        state.theme === "dark"
+                            ? "text-slate-300"
+                            : themeColor.text
                     } ${className}`}
                 >
                     {text
@@ -91,6 +97,10 @@ export default function Title({
                 </h1>
             )
         default:
-            return <h1 className="text-rose-500 font-bold">please specify the type</h1>
+            return (
+                <h1 className="text-rose-500 font-bold">
+                    please specify the type
+                </h1>
+            )
     }
 }

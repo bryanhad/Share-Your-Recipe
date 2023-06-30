@@ -61,7 +61,7 @@ export default function Search() {
         <div>
             <Title
                 type="normal"
-                className="text-center mb-3 text-3xl mb-8"
+                className="text-center text-3xl mb-8"
                 text={`Recipes including "${queryTerm}"`}
             />
             {error && <ErrorMessage errorMessage={error} />}

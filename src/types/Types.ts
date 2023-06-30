@@ -14,3 +14,14 @@ export type OptionsType = {
     }
     body: string
 }
+
+export type FormInputProps ={
+    id: string,
+    name: string,
+    type: 'text' | 'password' | 'email' | 'number'
+    placeholder: string
+    required: boolean
+    inputClassName: string
+    labelClassName?: string
+    label?:string
+}

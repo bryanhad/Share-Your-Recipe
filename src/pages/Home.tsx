@@ -10,7 +10,8 @@ import { useLoaderData } from "react-router-dom"
 
 export default function Home() {
     const recipes = useLoaderData() as RecipeType[] | string
-
+    console.log('i am from home!')
+    console.log(localStorage.getItem('user'))
     return (
         <div className="">
             {typeof recipes === "object" ? (
@@ -42,6 +43,8 @@ export default function Home() {
             ) : (
                 <ErrorMessage errorMessage={recipes} noGoHomeButton />
             )}
+
+            
         </div>
     )
 }

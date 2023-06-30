@@ -11,10 +11,10 @@ import PageNotFound from "./pages/PageNotFound.tsx"
 import RecipeDetail from "./pages/RecipeDetail.tsx"
 import Create from "./pages/Create.tsx"
 import Search from "./pages/Search.tsx"
-import Login from "./pages/Login.tsx"
 import { useContext } from "react"
 import { CurrentUserContext } from "./context/CurrentUserContext.tsx"
-import Register from "./pages/Register.tsx"
+import LoginPage from "./pages/Login/LoginPage.tsx"
+import SignUpPage from "./pages/SignUp/SignUpPage.tsx"
 
 export default function App() {
     const {
@@ -47,8 +47,8 @@ export default function App() {
                     <Route index element={<Search />} />
                 </Route>
 
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="signUp" element={<SignUpPage />} />
 
                 <Route path="*" element={<PageNotFound />} />
             </Route>

@@ -1,14 +1,15 @@
 import { useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
 import { Link } from "react-router-dom"
+import useThemeColor from "../hooks/useThemeColor"
 
 type ButtonProps = {
     type: "button" | "submit" | "link"
-    onclick?: () => void
+    onclick?: any
     children: string
     className?: string
     href?: string
-    style: "fill" | "outline"
+    style: "fill" | "outline" | "inverted" | "colorfulInverted"
 }
 
 export default function Button({
@@ -20,6 +21,29 @@ export default function Button({
     style,
 }: ButtonProps) {
     const { state } = useContext(ThemeContext)
+    const { themeColor } = useThemeColor()
+
+    let coolStyles
+
+    switch (style) {
+        case "fill":
+            coolStyles =
+                state.theme === "dark"
+                    ? "bg-gray-500 text-gray-300"
+                    : `${state.color} text-white`
+            break
+        case "outline":
+            coolStyles = "outline outline-[1px] outline-white text-white"
+            break
+        case "inverted":
+            coolStyles = `${themeColor.text} bg-white`
+            break
+        case 'colorfulInverted':
+            coolStyles = `${themeColor.text} outline outline-[1px] ${themeColor.outline}`
+            break
+        default:
+            coolStyles = "bg-red-600"
+    }
 
     switch (type) {
         case "button":
@@ -28,16 +52,7 @@ export default function Button({
                 <button
                     type={type}
                     onClick={onclick}
-                    className={` duration-300 text-base sm:text-xl rounded-md
-                    ${
-                        style === "fill"
-                            ? `${
-                                  state.theme === "dark"
-                                      ? "bg-gray-500 text-gray-300"
-                                      : `${state.color} text-white`
-                              }`
-                            : "outline outline-[1px] outline-white text-white"
-                    } ${className}`}
+                    className={` duration-300 text-base sm:text-xl rounded-md ${coolStyles} ${className}`}
                 >
                     {children}
                 </button>
@@ -47,16 +62,7 @@ export default function Button({
                 return (
                     <Link
                         to={href}
-                        className={` duration-300 text-base sm:text-xl rounded-md
-                    ${
-                        style === "fill"
-                            ? `${
-                                  state.theme === "dark"
-                                      ? "bg-gray-500 text-gray-300"
-                                      : `${state.color} text-white`
-                              }`
-                            : "outline outline-[1px] outline-white text-white"
-                    } ${className}`}
+                        className={` duration-300 text-base sm:text-xl rounded-md ${coolStyles} ${className}`}
                     >
                         {children}
                     </Link>

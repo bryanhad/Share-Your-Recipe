@@ -1,10 +1,15 @@
 import { createContext, useReducer, useEffect } from "react"
 import { User } from "firebase/auth"
 
-type ActionType = {
-    type: "LOGIN" | "LOGOUT"
+type LoginActionType = {
+    type: "LOGIN"
     paylaod: User
 }
+type LogoutActionType = {
+    type: "LOGOUT"
+}
+type ActionType = LoginActionType | LogoutActionType
+
 type UserStateType = {
     currentUser: User | null
 }
