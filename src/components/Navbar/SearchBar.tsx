@@ -1,18 +1,28 @@
-import { useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { BiSearch } from "react-icons/bi"
 import { useNavigate } from "react-router-dom"
+import { NavbarContext } from "../../context/NavBarContext"
+
+type Props = {
+    direction: "left" | "right"
+    iconClassName:string
+}
 
 export default function SearchBar({
-    direction,
-}: {
-    direction: "left" | "right"
-}) {
+    direction, iconClassName
+}: Props) {
     const [term, setTerm] = useState<string | null>(null)
     const navigate = useNavigate()
+    const {setNav} = useContext(NavbarContext)
+    const inputRef = useRef<HTMLInputElement>(null)
 
-    function handleSubmit(e: React.FormEvent) {
+    const handleSubmit:React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         if (term) {
+            setNav(false)
+            if(inputRef.current) {
+                inputRef.current.value = ''
+            }
             navigate(`/search?q=${term.toLocaleLowerCase()}`)
         }
     }
@@ -20,20 +30,22 @@ export default function SearchBar({
     return (
         <form onSubmit={handleSubmit} className="flex gap-2 items-center">
             {direction === "left" && (
-                <label htmlFor="search" className="text-2xl cursor-pointer">
+                <label htmlFor="search" className={`${iconClassName} cursor-pointer`}>
                     <BiSearch />
                 </label>
             )}
             <input
+                ref={inputRef}
                 onChange={(e) => setTerm(e.target.value)}
                 placeholder="Crispy Eggplant"
+                name='input'
                 id="search"
-                className="p-2 text-sm sm:text-base rounded-md text-black outline-white"
+                className="p-2 text-sm lg:text-base rounded-md text-black outline-white"
                 type="text"
                 required
             />
             {direction === "right" && (
-                <label htmlFor="search" className="text-xl cursor-pointer">
+                <label htmlFor="search" className={`${iconClassName} cursor-pointer`}>
                     <BiSearch />
                 </label>
             )}

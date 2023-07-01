@@ -15,6 +15,7 @@ import { useContext } from "react"
 import { CurrentUserContext } from "./context/CurrentUserContext.tsx"
 import LoginPage from "./pages/Login/LoginPage.tsx"
 import SignUpPage from "./pages/SignUp/SignUpPage.tsx"
+import HomePage from "./pages/HomePage.tsx"
 
 export default function App() {
     const {
@@ -25,10 +26,13 @@ export default function App() {
         return currentUser ? children : <Navigate to={"/login"} />
     }
 
+    // const LoggedInCantEnter
+
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout />}>
-                <Route index element={<Home />} loader={recipesLoader}/>
+                {/* <Route index element={<Home />} loader={recipesLoader}/> */}
+                <Route index element={<HomePage/>}/>
 
                 <Route
                     path="create"
@@ -48,7 +52,7 @@ export default function App() {
                 </Route>
 
                 <Route path="login" element={<LoginPage />} />
-                <Route path="signUp" element={<SignUpPage />} />
+                <Route path="sign-up" element={<SignUpPage />} />
 
                 <Route path="*" element={<PageNotFound />} />
             </Route>

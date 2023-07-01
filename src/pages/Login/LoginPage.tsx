@@ -3,7 +3,7 @@ import FormInputComponent from "../../components/FormInputComponent"
 import { loginFormInputs } from "./inputs"
 import Button from "../../components/Button"
 import Title from "../../components/Title"
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebase/config"
 import { getErrorMessage } from "../../lib/getErrorMessage"
 import Toast from "../../components/Toast"
@@ -25,6 +25,7 @@ export default function LoginPage() {
         try {
             const userCredentialRes = await signInWithEmailAndPassword(auth, formValues.email, formValues.password)
             const user = userCredentialRes.user
+            dispatch({type:'LOGIN', paylaod:user})
             navigate('/')
         } catch (err) {
             const errMessage = getErrorMessage(err)

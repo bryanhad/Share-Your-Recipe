@@ -8,16 +8,33 @@ export default function Title({
     className,
     type,
     href,
+    onClick
 }: {
     text: string
     className?: string
-    type: "normal" | "colorful" | "recipeTitle" | "colorfulRecipeTitle" | "link"
+    type: "normal" | "colorful" | "recipeTitle" | "colorfulRecipeTitle" | "link" | "canBeClicked"
     href?: string
+    onClick?:() => void
 }) {
     const { state } = useContext(ThemeContext)
     const { themeColor } = useThemeColor()
 
     switch (type) {
+        case "canBeClicked": {
+            if (onClick) {
+                return (
+                    <h1 onClick={onClick} className={`${className}`}>
+                        {text}
+                    </h1>
+                )
+            } else {
+                return (
+                    <h1 className="text-rose-500 font-bold">
+                    Please specify the onClick function!!
+                </h1>
+                )
+            }
+        }
         case "link": {
             if (href) {
                 return (

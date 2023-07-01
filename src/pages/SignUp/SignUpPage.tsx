@@ -5,7 +5,6 @@ import Button from "../../components/Button"
 import Title from "../../components/Title"
 import {
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
     updateProfile,
 } from "firebase/auth"
 import { auth } from "../../firebase/config"
@@ -42,7 +41,7 @@ export default function SignUpPage() {
             if (!updatedCurrentUser)
                 throw new Error("failed to write to the database!")
             dispatch({ type: "LOGIN", paylaod: updatedCurrentUser })
-            navigate("/")
+            navigate("")
         } catch (err) {
             const errMessage = getErrorMessage(err)
             notify({ type: "error", message: errMessage })

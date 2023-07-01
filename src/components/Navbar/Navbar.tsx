@@ -1,5 +1,5 @@
-import SearchBar from "../SearchBar"
-import { useContext, useState } from "react"
+import SearchBar from "./SearchBar"
+import { useContext } from "react"
 import { ThemeContext } from "../../context/ThemeContext"
 import { RxHamburgerMenu } from "react-icons/rx"
 import ChangeColorsButtons from "./ChangeColorsButtons"
@@ -8,22 +8,23 @@ import Title from "../Title"
 import BurgerMenu from "./BurgerMenu"
 import Button from "../Button"
 import Profile_Login_SignUp from "./Profile-Login-SignUp"
+import { NavbarContext } from "../../context/NavBarContext"
 
-export default function Navbar({className}:{className?:string}) {
+export default function Navbar({ className }: { className?: string }) {
     const { state, dispatch } = useContext(ThemeContext)
-    const [nav, setNav] = useState(false)
+    const {setNav} = useContext(NavbarContext)
 
     return (
         <>
             <nav
-                className={`w-full duration-300 ${state.color} text-white lg:h-[70px] flex max-lg:flex-col lg:items-center  px-6 max-md:overflow-hidden ${className}`}
+                className={`w-full duration-300 ${state.theme === 'dark' ? `bg-slate-700` : state.color} text-white lg:h-[70px] flex max-lg:flex-col lg:items-center  px-6 max-md:overflow-hidden ${className}`}
             >
                 <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center h-full max-lg:min-h-[70px]">
                     <Title
                         type="link"
                         text="ShareNCook"
                         href="/"
-                        className="font-semibold text-3xl md:text-[40px] leading-none"
+                        className="font-semibold text-3xl lg:text-[40px] leading-none"
                     />
                     <button
                         onClick={() => setNav((prev) => !prev)}
@@ -34,23 +35,23 @@ export default function Navbar({className}:{className?:string}) {
 
                     {/* SEARCHBAR & CREATE BUTTON */}
                     <div className="hidden lg:flex gap-8 h-full">
-                        <SearchBar direction="left" />
+                        <SearchBar direction="right" iconClassName="text-2xl" />
                         <span className="flex items-center">
                             <Button
                                 type="link"
-                                style='outline'
+                                style="outline"
                                 href="/create"
-                                className="rounded-md p-2"
+                                className="p-2"
                             >
                                 Create Recipe
                             </Button>
                         </span>
-                        <Profile_Login_SignUp className="flex items-center gap-6"/>
+                        <Profile_Login_SignUp className="flex items-center gap-6" />
                     </div>
                 </div>
 
                 {/* BURGER MENU */}
-                <BurgerMenu navState={nav} />
+                <BurgerMenu />
             </nav>
 
             {/* CHANGE THEME & COOLOR NOTE:LOCATED BELOW THE NAVBAR */}

@@ -19,7 +19,7 @@ export type FormInputProps ={
     id: string,
     name: string,
     type: 'text' | 'password' | 'email' | 'number'
-    placeholder: string
+    placeholder?: string
     required: boolean
     inputClassName: string
     labelClassName?: string

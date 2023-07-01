@@ -2,8 +2,9 @@ import { useContext } from "react"
 import { ThemeContext } from "../../context/ThemeContext"
 
 export default function ChangeColorsButtons({className}:{className?:string}) {
+    const {state} = useContext(ThemeContext)
     return (
-        <div className={className}>
+        <div className={`${state.theme === 'dark' ? 'hidden' : ''} ${className}`}>
             <ColorButton color="bg-amber-400" />
             <ColorButton color="bg-emerald-400" />
             <ColorButton color="bg-rose-400" />

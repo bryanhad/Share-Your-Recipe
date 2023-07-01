@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { ReactNode, useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
 import { Link } from "react-router-dom"
 import useThemeColor from "../hooks/useThemeColor"
@@ -6,7 +6,7 @@ import useThemeColor from "../hooks/useThemeColor"
 type ButtonProps = {
     type: "button" | "submit" | "link"
     onclick?: any
-    children: string
+    children: ReactNode
     className?: string
     href?: string
     style: "fill" | "outline" | "inverted" | "colorfulInverted"
@@ -39,7 +39,7 @@ export default function Button({
             coolStyles = `${themeColor.text} bg-white`
             break
         case 'colorfulInverted':
-            coolStyles = `${themeColor.text} outline outline-[1px] ${themeColor.outline}`
+            coolStyles = `${state.theme === 'dark' ? 'text-slate-500' : themeColor.text +" "+ themeColor.outline} outline outline-[1px]`
             break
         default:
             coolStyles = "bg-red-600"
