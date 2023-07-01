@@ -68,7 +68,7 @@ export default function Title({
                 <h1
                     className={`font-bold text-center ${
                         state.theme === "dark"
-                            ? "text-slate-300"
+                            ? "text-gray-400"
                             : "text-slate-600"
                     } ${className}`}
                 >
@@ -80,7 +80,7 @@ export default function Title({
                 <h1
                     className={`font-bold text-center  ${
                         state.theme === "dark"
-                            ? "text-slate-300"
+                            ? "text-slate-600"
                             : "text-slate-600"
                     } ${className}`}
                 >

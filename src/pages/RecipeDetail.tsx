@@ -55,7 +55,7 @@ export default function RecipeDetail() {
     return (
         <div>
             {error && <ErrorMessage errorMessage={error} />}
-            {loading && <Loading />}
+            {loading && <Loading basicLarge />}
             {recipe && (
                 <ThemedContainer className="p-8 flex flex-col gap-4">
                     <div className="relative w-full lfex justify-center">

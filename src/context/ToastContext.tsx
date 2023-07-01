@@ -10,13 +10,13 @@ type toastNotifyType = {
 }
 
 export const ToastContext = createContext<{
-    setToastNotify: React.Dispatch<React.SetStateAction<toastNotifyType>>
+    setToastNotify: React.Dispatch<React.SetStateAction<toastNotifyType | null>>
     ToastContainer: React.ForwardRefExoticComponent<ToastContainerProps & React.RefAttributes<HTMLDivElement>>
 }>({setToastNotify:() => {}, ToastContainer:ToastContainer})
 
 
 export const ToastContextProvider = ({children}: {children: React.ReactNode}) => {
-    const [toastNotify, setToastNotify] = useState<toastNotifyType>({toastType:'default', toastMessage:'This is default Message'})
+    const [toastNotify, setToastNotify] = useState<toastNotifyType | null>(null)
     const { notify, ToastContainer } = Toast()
 
     useEffect(() => {

@@ -41,6 +41,7 @@ export default function SignUpPage() {
             if (!updatedCurrentUser)
                 throw new Error("failed to write to the database!")
             dispatch({ type: "LOGIN", paylaod: updatedCurrentUser })
+            setToastNotify({toastType:'default', toastMessage:`🙌 Welcome abroad ${updatedCurrentUser.displayName}!`})
             navigate("/")
         } catch (err) {
             const errMessage = getErrorMessage(err)
@@ -53,7 +54,7 @@ export default function SignUpPage() {
     }
 
     return (
-        <div>
+        <div className="mt-8">
             <form
                 onSubmit={handleSubmit}
                 className="max-w-[500px] mx-auto p-8 rounded-md shadow-md bg-white flex flex-col gap-5 items-center"

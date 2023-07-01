@@ -36,7 +36,7 @@ export default function Button({
             coolStyles = "outline outline-[1px] outline-white text-white"
             break
         case "inverted":
-            coolStyles = `${themeColor.text} bg-white`
+            coolStyles = `${state.theme === 'dark' ? 'text-slate-500' : themeColor.text} bg-white`
             break
         case 'colorfulInverted':
             coolStyles = `${state.theme === 'dark' ? 'text-slate-500' : themeColor.text +" "+ themeColor.outline} outline outline-[1px]`

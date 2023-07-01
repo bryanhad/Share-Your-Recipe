@@ -17,7 +17,7 @@ export default function Navbar({ className }: { className?: string }) {
     return (
         <>
             <nav
-                className={`w-full duration-300 ${state.theme === 'dark' ? `bg-slate-700` : state.color} text-white lg:h-[70px] flex max-lg:flex-col lg:items-center  px-6 max-md:overflow-hidden ${className}`}
+                className={`w-full duration-300 ${state.theme === 'dark' ? `bg-gray-700` : state.color} text-white lg:h-[70px] flex max-lg:flex-col lg:items-center  px-6 max-md:overflow-hidden ${className}`}
             >
                 <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center h-full max-lg:min-h-[70px]">
                     <Title

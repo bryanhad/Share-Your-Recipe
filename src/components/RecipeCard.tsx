@@ -1,10 +1,15 @@
+import {useContext} from 'react'
 import { RecipeType } from "../types/Types"
 import ArrayToCommasString from "./ArrayToCommasString"
 import Button from "./Button"
 import ThemedContainer from "./ThemedContainer"
 import Title from "./Title"
+import { ThemeContext } from '../context/ThemeContext'
 
 export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
+    const {state:{theme}} = useContext(ThemeContext)
+
+
     return (
         <ThemedContainer className="w-[450px] flex flex-col items-center text-center duration-300 hover:rotate-[2.5deg]">
             <span>
@@ -18,7 +23,7 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
                     <ArrayToCommasString
                         arrayOfStrings={recipe.methods}
                         maxCharacters={100}
-                        className="font-[400] text-lg"
+                        className={`font-[400] text-lg ${theme === 'dark' ? 'text-slate-300' : 'text-slate-500'}`}
                     />
                 </div>
             </span>

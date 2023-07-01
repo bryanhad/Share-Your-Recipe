@@ -26,6 +26,7 @@ export default function LoginPage() {
             const userCredentialRes = await signInWithEmailAndPassword(auth, formValues.email, formValues.password)
             const user = userCredentialRes.user
             dispatch({type:'LOGIN', paylaod:user})
+            setToastNotify({toastType:'default', toastMessage:`👋 Welcome ${user.displayName}!`})
             navigate('/')
         } catch (err) {
             const errMessage = getErrorMessage(err)
@@ -39,7 +40,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div>
+        <div className="mt-8">
             <form
                 onSubmit={handleSubmit}
                 className="max-w-[500px] mx-auto p-8 rounded-md shadow-md bg-white flex flex-col gap-5 items-center"

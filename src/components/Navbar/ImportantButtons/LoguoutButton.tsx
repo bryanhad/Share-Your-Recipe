@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../../../lib/getErrorMessage"
 import { MdOutlineExitToApp } from "react-icons/md"
 import { ToastContext } from "../../../context/ToastContext"
+import { NavbarContext } from "../../../context/NavBarContext"
 
 type Props = {
     className: string
@@ -25,11 +26,14 @@ export default function LoguoutButton({
         dispatch,
     } = useContext(CurrentUserContext)
     const {setToastNotify} = useContext(ToastContext)
+    const {setNav} = useContext(NavbarContext)
 
     const handleSignOut = () => {
         try {
             signOut(auth)
             dispatch({ type: "LOGOUT" })
+            setNav(false)
+            setToastNotify({toastType:'success', toastMessage:'Logout Successful!'})
             navigate("/")
         } catch (err) {
             const errorMessage = getErrorMessage(err)

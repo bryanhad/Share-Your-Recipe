@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom"
 import { collection, query, where, getDocs } from "firebase/firestore"
-
 import { RecipeType } from "../types/Types"
 import Title from "../components/Title"
 import { db } from "../firebase/config"
@@ -61,12 +60,12 @@ export default function Search() {
         <div>
             <Title
                 type="normal"
-                className="text-center text-3xl mb-8"
+                className="text-center text-3xl mb-14"
                 text={`Recipes including "${queryTerm}"`}
             />
             {error && <ErrorMessage errorMessage={error} />}
             {loading ? (
-                <Loading className="mt-12" />
+                <Loading basicLarge />
             ) : (
                 <>{recipes.length === 0 && <NothingFound item={queryTerm} />}</>
             )}

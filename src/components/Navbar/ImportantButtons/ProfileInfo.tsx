@@ -5,6 +5,7 @@ import Title from "../../Title"
 import Button from "../../Button"
 import { NavbarContext } from "../../../context/NavBarContext"
 import { useNavigate } from "react-router-dom"
+import Loading from "../../Loading"
 
 type Props = {
     useDropDown: boolean
@@ -37,12 +38,16 @@ export default function ProfileInfo({
                 <div className="flex gap-2">
                     {direction === "left" && (
                         <>
-                            {currentUser?.photoURL && (
+                            {currentUser?.photoURL ? (
                                 <img
                                     className="w-[40px] rounded-full border-white/50 border-2"
                                     src={currentUser.photoURL}
                                     alt=""
                                 />
+                            ) : (
+                                <div className="h-[40px] w-[40px] bg-slate-400 rounded-full border-white/50 border-2 grid place-content-center">
+                                    <Loading iconClassName="text-xl text-white" basicLarge={false}/>
+                                </div>
                             )}
                         </>
                     )}
@@ -76,13 +81,13 @@ export default function ProfileInfo({
                 </div>
             ) : (
                 <div className="flex flex-col items-end gap-4">
-                    <Title type='canBeClicked' text="LOGIN" className="text-xl" onClick={handleLoginButton}/>
+                    <Title type='canBeClicked' text="LOGIN" className="text-xl p-1" onClick={handleLoginButton}/>
                     <Button
                         type="button"
                         onclick={handleSignUpButton}
                         href="/signup"
-                        style="inverted"
-                        className="px-2 font-semibold"
+                        style='outline'
+                        className="px-3 py-2 font-semibold"
                     >
                         SIGN UP
                     </Button>
