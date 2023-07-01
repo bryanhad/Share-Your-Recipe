@@ -25,3 +25,5 @@ export type FormInputProps ={
     labelClassName?: string
     label?:string
 }
+
+export type ToastTypes = 'info' | 'success' | 'warning' | 'error' | 'default'

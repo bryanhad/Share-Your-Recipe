@@ -8,24 +8,27 @@ import { ThemeContext } from "../context/ThemeContext"
 import Button from "../components/Button"
 import { AiFillDelete } from "react-icons/ai"
 import { CurrentUserContext } from "../context/CurrentUserContext"
+import { getErrorMessage } from "../lib/getErrorMessage"
+import { ToastContext } from "../context/ToastContext"
 
 export default function Create() {
-    const {
-        state: { currentUser },
-    } = useContext(CurrentUserContext)
+    const {state: { currentUser }} = useContext(CurrentUserContext)
     const { state: themeState } = useContext(ThemeContext)
     const { state, dispatch } = useContext(FormContext)
     const ingredientRef = useRef<HTMLInputElement>(null)
     const methodRef = useRef<HTMLInputElement>(null)
+    // const {notify, ToastContainer} = Toast()
+    const {setToastNotify} = useContext(ToastContext)
     let navigate = useNavigate()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
+            if (state.methods.length === 0 || state.ingredients.length === 0) throw new Error('You have to write atleast 1 method!')
             const docRef = await addDoc(collection(db, "recipes"), {
                 ...state,
                 createdAt: serverTimestamp(),
-                createdBy: currentUser?.email,
+                createdBy: typeof currentUser?.displayName === 'string' ? currentUser.displayName : 'Anonymous',
             })
             console.log(docRef)
             dispatch({ type: "CLEAR_FORM_STATE" })
@@ -33,7 +36,8 @@ export default function Create() {
                 navigate("/")
             }
         } catch (err) {
-            alert(err)
+            const errMessage = getErrorMessage(err)
+            setToastNotify({toastType:'error', toastMessage:errMessage})
         }
     }
 
@@ -136,11 +140,11 @@ export default function Create() {
                                 : "bg-white outline-slate-200"
                         }`}
                     />
-                    {state.ingredients.length === 0 && (
+                    {/* {state.ingredients.length === 0 && (
                         <p className="italic text-base flex-[3] text-rose-400">
                             Please specify the ingredients
                         </p>
-                    )}
+                    )} */}
                     {state.ingredients.length >= 1 && (
                         <div className="flex gap-4 text-base mt-2">
                             <p

@@ -54,7 +54,7 @@ export default function ProfileButtons({
                             text={button.text}
                             iconClassName={iconClassName}
                             onClick={button.onClick}
-                            className="lg:mx-auto lg:my-1 lg:text-sm"
+                            className="lg:mx-auto lg:my-1 lg:text-sm py-1"
                         />
                     ))}
                 </div>

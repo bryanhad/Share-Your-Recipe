@@ -1,8 +1,8 @@
 import { ToastContainer, ToastOptions, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { ToastTypes } from "../types/Types"
 
-type TypeChoices = 'info' | 'success' | 'warning' | 'error'
-type NotifyProps = {type:TypeChoices, message:string}
+type NotifyProps = {type:ToastTypes, message:string}
 
 export default function Toast() {
     const toastObjArg:ToastOptions = {
@@ -26,6 +26,8 @@ export default function Toast() {
                 return toast.warn(message, toastObjArg)
             case 'error':
                 return toast.error(message, toastObjArg)
+            case 'default':
+                return toast(message, toastObjArg)
             default:
                 return toast(message, toastObjArg)
         }

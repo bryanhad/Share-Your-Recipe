@@ -9,13 +9,13 @@ import {
 } from "firebase/auth"
 import { auth } from "../../firebase/config"
 import { getErrorMessage } from "../../lib/getErrorMessage"
-import Toast from "../../components/Toast"
 import { useNavigate } from "react-router-dom"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
+import { ToastContext } from "../../context/ToastContext"
 
 export default function SignUpPage() {
     const navigate = useNavigate()
-    const { notify, ToastContainer } = Toast()
+    const {setToastNotify} = useContext(ToastContext)
     const { dispatch } = useContext(CurrentUserContext)
     const [formValues, setFormValues] = useState({
         username: "",
@@ -41,10 +41,10 @@ export default function SignUpPage() {
             if (!updatedCurrentUser)
                 throw new Error("failed to write to the database!")
             dispatch({ type: "LOGIN", paylaod: updatedCurrentUser })
-            navigate("")
+            navigate("/")
         } catch (err) {
             const errMessage = getErrorMessage(err)
-            notify({ type: "error", message: errMessage })
+            setToastNotify({toastType:'error', toastMessage:errMessage})
         }
     }
 
@@ -54,21 +54,22 @@ export default function SignUpPage() {
 
     return (
         <div>
-            <ToastContainer />
             <form
                 onSubmit={handleSubmit}
-                className="max-w-[500px] mx-auto p-8 rounded-md shadow-md bg-white flex flex-col gap-4 items-center"
+                className="max-w-[500px] mx-auto p-8 rounded-md shadow-md bg-white flex flex-col gap-5 items-center"
             >
                 <Title type="normal" text="SIGN UP" className="text-4xl mb-4" />
-                {signUpFormInputs.map((input) => (
-                    <FormInputComponent
-                        key={input.id}
-                        className="flex gap-2 items-center"
-                        onChange={handleChange}
-                        useLabel
-                        inputProps={input}
-                    />
-                ))}
+                <div className="w-full max-w-[300px] flex flex-col gap-5">
+                    {signUpFormInputs.map((input) => (
+                        <FormInputComponent
+                            key={input.id}
+                            className="flex gap-2 items-center"
+                            onChange={handleChange}
+                            useLabel={false}
+                            inputProps={input}
+                        />
+                    ))}
+                </div>
                 <Button
                     type="submit"
                     style="fill"

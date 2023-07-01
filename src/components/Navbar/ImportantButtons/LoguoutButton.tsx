@@ -5,8 +5,8 @@ import { useContext } from "react"
 import { CurrentUserContext } from "../../../context/CurrentUserContext"
 import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../../../lib/getErrorMessage"
-import Toast from "../../Toast"
 import { MdOutlineExitToApp } from "react-icons/md"
+import { ToastContext } from "../../../context/ToastContext"
 
 type Props = {
     className: string
@@ -24,7 +24,7 @@ export default function LoguoutButton({
         state: { currentUser },
         dispatch,
     } = useContext(CurrentUserContext)
-    const { notify, ToastContainer } = Toast()
+    const {setToastNotify} = useContext(ToastContext)
 
     const handleSignOut = () => {
         try {
@@ -33,7 +33,7 @@ export default function LoguoutButton({
             navigate("/")
         } catch (err) {
             const errorMessage = getErrorMessage(err)
-            notify({ type: "error", message: errorMessage })
+            setToastNotify({toastType:'error', toastMessage:errorMessage})
         }
     }
 
@@ -52,7 +52,6 @@ export default function LoguoutButton({
                                     <MdOutlineExitToApp />
                                 </span>
                             </button>
-                            <ToastContainer />
                         </>
                     ) : (
                         <div className={className}>
@@ -64,7 +63,6 @@ export default function LoguoutButton({
                             >
                                 Logout
                             </Button>
-                            <ToastContainer />
                         </div>
                     )}
                 </>

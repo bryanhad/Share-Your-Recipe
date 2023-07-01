@@ -6,13 +6,13 @@ import Title from "../../components/Title"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebase/config"
 import { getErrorMessage } from "../../lib/getErrorMessage"
-import Toast from "../../components/Toast"
 import { useNavigate } from "react-router-dom"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
+import { ToastContext } from "../../context/ToastContext"
 
 export default function LoginPage() {
     const navigate = useNavigate()
-    const {notify, ToastContainer} = Toast()
+    const {setToastNotify} = useContext(ToastContext)
     const {dispatch} = useContext(CurrentUserContext)
     const [formValues, setFormValues] = useState({
         email: "",
@@ -29,7 +29,8 @@ export default function LoginPage() {
             navigate('/')
         } catch (err) {
             const errMessage = getErrorMessage(err)
-            notify({type:'error', message:errMessage})
+            setToastNotify({toastType:'error', toastMessage:errMessage})
+            // notify({type:'error', message:errMessage})
         }
     }
 
@@ -39,21 +40,22 @@ export default function LoginPage() {
 
     return (
         <div>
-            <ToastContainer/>
             <form
                 onSubmit={handleSubmit}
-                className="max-w-[500px] mx-auto p-8 rounded-md shadow-md bg-white flex flex-col gap-4 items-center"
+                className="max-w-[500px] mx-auto p-8 rounded-md shadow-md bg-white flex flex-col gap-5 items-center"
             >
-                <Title type='normal' text="LOGIN" className="text-4xl mb-4"/>
-                {loginFormInputs.map((input) => (
-                    <FormInputComponent
-                        key={input.id}
-                        className="flex gap-2 items-center"
-                        onChange={handleChange}
-                        useLabel
-                        inputProps={input}
-                    />
-                ))}
+                <Title type='normal' text="LOGIN" className="text-4xl mb-1"/>
+                <div className="w-full max-w-[300px] flex flex-col gap-5">
+                    {loginFormInputs.map((input) => (
+                        <FormInputComponent
+                            key={input.id}
+                            className="flex gap-2 items-center"
+                            onChange={handleChange}
+                            useLabel={false}
+                            inputProps={input}
+                        />
+                    ))}
+                </div>
                 <Button
                     type="submit"
                     style="fill"
