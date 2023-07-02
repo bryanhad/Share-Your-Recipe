@@ -1,5 +1,4 @@
 import SearchBar from "./SearchBar"
-import { RiPencilLine } from "react-icons/ri"
 import ChangeThemeIcon from "./ChangeThemeIcon"
 import ChangeColorsButtons from "./ChangeColorsButtons"
 import { useContext } from "react"
@@ -8,15 +7,13 @@ import ProfileInfo from "./ImportantButtons/ProfileInfo"
 import ProfileButtons from "./ImportantButtons/ProfileButtons"
 import LoguoutButton from "./ImportantButtons/LoguoutButton"
 import { NavbarContext } from "../../context/NavBarContext"
-import ButtonCanBeClickedWithIcon from "../ButtonCanBeClickedWithIcon"
-import { useNavigate } from "react-router-dom"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
+import CreateRecipeButton from "./ImportantButtons/CreateRecipeButton"
 
 export default function BurgerMenu() {
-    const navigate = useNavigate()
     const {state:{currentUser}} = useContext(CurrentUserContext)
     const { state, dispatch } = useContext(ThemeContext)
-    const { nav, setNav } = useContext(NavbarContext)
+    const { nav } = useContext(NavbarContext)
 
     return (
         <div
@@ -31,16 +28,7 @@ export default function BurgerMenu() {
                     className="flex flex-col gap-4 items-end text-lg"
                     direction="right"
                 />
-                <ButtonCanBeClickedWithIcon
-                    onClick={() => {
-                        setNav(false)
-                        navigate('/create')
-                    }}
-                    direction="right"
-                    icon={<RiPencilLine />}
-                    iconClassName="text-2xl rounded-full border-2 border-white/60 p-1.5"
-                    text="Create Recipe"
-                />
+                <CreateRecipeButton isInBurgerMenu/>
                 <SearchBar
                     iconClassName="text-2xl rounded-full border-2 border-white/60 p-1.5"
                     direction="right"

@@ -1,5 +1,4 @@
 import Title from "../Title"
-import Button from "../Button"
 import { useContext } from "react"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import ProfileInfo from "./ImportantButtons/ProfileInfo"
@@ -35,14 +34,6 @@ export default function Profile_Login_SignUp({
                         text="LOGIN"
                         className="text-xl"
                     />
-                    <Button
-                        type="link"
-                        href="/sign-up"
-                        style="inverted"
-                        className="px-2 font-semibold"
-                    >
-                        SIGN UP
-                    </Button>
                 </>
             )}
         </div>

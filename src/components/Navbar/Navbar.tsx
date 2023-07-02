@@ -6,9 +6,9 @@ import ChangeColorsButtons from "./ChangeColorsButtons"
 import ChangeThemeIcon from "./ChangeThemeIcon"
 import Title from "../Title"
 import BurgerMenu from "./BurgerMenu"
-import Button from "../Button"
 import Profile_Login_SignUp from "./Profile-Login-SignUp"
 import { NavbarContext } from "../../context/NavBarContext"
+import CreateRecipeButton from "./ImportantButtons/CreateRecipeButton"
 
 export default function Navbar({ className }: { className?: string }) {
     const { state, dispatch } = useContext(ThemeContext)
@@ -37,14 +37,7 @@ export default function Navbar({ className }: { className?: string }) {
                     <div className="hidden lg:flex gap-8 h-full">
                         <SearchBar direction="right" iconClassName="text-2xl" />
                         <span className="flex items-center">
-                            <Button
-                                type="link"
-                                style="outline"
-                                href="/create"
-                                className="p-2"
-                            >
-                                Create Recipe
-                            </Button>
+                            <CreateRecipeButton isInBurgerMenu={false}/>
                         </span>
                         <Profile_Login_SignUp className="flex items-center gap-6" />
                     </div>

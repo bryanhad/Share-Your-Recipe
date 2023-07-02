@@ -2,7 +2,6 @@ import { AiOutlineCaretDown } from "react-icons/ai"
 import { useContext } from "react"
 import { CurrentUserContext } from "../../../context/CurrentUserContext"
 import Title from "../../Title"
-import Button from "../../Button"
 import { NavbarContext } from "../../../context/NavBarContext"
 import { useNavigate } from "react-router-dom"
 import Loading from "../../Loading"
@@ -27,11 +26,6 @@ export default function ProfileInfo({
         navigate('/login')
     }
 
-    const handleSignUpButton = () => {
-        setNav(false)
-        navigate('/sign-up')
-    }
-
     return (
         <>
             {currentUser ? (
@@ -40,7 +34,7 @@ export default function ProfileInfo({
                         <>
                             {currentUser?.photoURL ? (
                                 <img
-                                    className="w-[40px] rounded-full border-white/50 border-2"
+                                    className="w-[40px] h-[40px] rounded-full border-white/50 border-2"
                                     src={currentUser.photoURL}
                                     alt=""
                                 />
@@ -82,15 +76,6 @@ export default function ProfileInfo({
             ) : (
                 <div className="flex flex-col items-end gap-4">
                     <Title type='canBeClicked' text="LOGIN" className="text-xl p-1" onClick={handleLoginButton}/>
-                    <Button
-                        type="button"
-                        onclick={handleSignUpButton}
-                        href="/signup"
-                        style='outline'
-                        className="px-3 py-2 font-semibold"
-                    >
-                        SIGN UP
-                    </Button>
                 </div>
             )}
         </>

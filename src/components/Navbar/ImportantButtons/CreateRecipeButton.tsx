@@ -1,0 +1,59 @@
+import { useContext } from "react"
+import Button from "../../Button"
+import { useNavigate } from "react-router-dom"
+import { CurrentUserContext } from "../../../context/CurrentUserContext"
+import { ToastContext } from "../../../context/ToastContext"
+import ButtonCanBeClickedWithIcon from "../../ButtonCanBeClickedWithIcon"
+import { NavbarContext } from "../../../context/NavBarContext"
+import { RiPencilLine } from "react-icons/ri"
+
+export default function CreateRecipeButton({
+    isInBurgerMenu,
+}: {
+    isInBurgerMenu: boolean
+}) {
+    const navigate = useNavigate()
+    const {
+        state: { currentUser },
+    } = useContext(CurrentUserContext)
+    const { setToastNotify } = useContext(ToastContext)
+    const { setNav } = useContext(NavbarContext)
+
+    const handleGoToCreatePage = () => {
+        navigate("/create")
+        if (!currentUser) {
+            setToastNotify({
+                toastType: "info",
+                toastMessage: "You have to log in to create a Recipe!",
+            })
+        }
+    }
+
+    if (isInBurgerMenu) {
+        return (
+            <ButtonCanBeClickedWithIcon
+                onClick={() => {
+                    setNav(false)
+                    navigate("/create")
+                }}
+                className="lg:hidden"
+                direction="right"
+                icon={<RiPencilLine />}
+                iconClassName="text-2xl rounded-full border-2 border-white/60 p-1.5"
+                text="Create Recipe"
+            />
+        )
+    }
+
+    return (
+        <Button
+            type="button"
+            onclick={handleGoToCreatePage}
+            style="outline"
+            href="/create"
+            className="p-2 hidden lg:block"
+        >
+            Create Recipe
+        </Button>
+    )
+}
