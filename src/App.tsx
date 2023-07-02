@@ -15,6 +15,7 @@ import LoginPage from "./pages/Login/LoginPage.tsx"
 import SignUpPage from "./pages/SignUp/SignUpPage.tsx"
 import HomePage from "./pages/HomePage/HomePage.tsx"
 import RecipeDetailsPage from "./pages/RecipeDetails/RecipeDetailsPage.tsx"
+import MyProfilePage from "./pages/MyProfile/MyProfilePage.tsx"
 
 export default function App() {
     const {
@@ -71,6 +72,8 @@ export default function App() {
                         </LoggedInCantEnter>
                     }
                 />
+
+                <Route path="my-profile" element={<MyProfilePage/>}/>
 
                 <Route path="*" element={<PageNotFound />} />
             </Route>

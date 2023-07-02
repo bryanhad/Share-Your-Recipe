@@ -28,7 +28,7 @@ export default function ProfileButtons({
             onClick: () => {
                 setNav(false)
                 setDropDown(false)
-                navigate('/profile')
+                navigate('/my-profile')
             }
         },
         {
