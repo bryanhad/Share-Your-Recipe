@@ -25,12 +25,18 @@ export default function App() {
         return currentUser ? children : <Navigate to={"/login"} />
     }
 
-    // const LoggedInCantEnter
+    const LoggedInCantEnter = ({
+        children,
+    }: {
+        children: React.ReactElement
+    }) => {
+        return currentUser ? <Navigate to={"/"} /> : children
+    }
 
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout />}>
-                <Route index element={<HomePage/>}/>
+                <Route index element={<HomePage />} />
 
                 <Route
                     path="create"
@@ -49,8 +55,22 @@ export default function App() {
                     <Route index element={<Search />} />
                 </Route>
 
-                <Route path="login" element={<LoginPage />} />
-                <Route path="sign-up" element={<SignUpPage />} />
+                <Route
+                    path="login"
+                    element={
+                        <LoggedInCantEnter>
+                            <LoginPage />
+                        </LoggedInCantEnter>
+                    }
+                />
+                <Route
+                    path="sign-up"
+                    element={
+                        <LoggedInCantEnter>
+                            <SignUpPage />
+                        </LoggedInCantEnter>
+                    }
+                />
 
                 <Route path="*" element={<PageNotFound />} />
             </Route>
