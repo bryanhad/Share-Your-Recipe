@@ -10,11 +10,11 @@ export default function ErrorMessage({
 }) {
     if (noGoHomeButton) {
         return (
-            <div className="bg-white rounded-xl p-8 flex flex-col items-center text-center gap-4 mt-6">
+            <div className="mt-6 flex flex-col items-center gap-4 rounded-xl bg-white p-8 text-center">
                 <Title
                     type="colorful"
                     text="ERROR"
-                    className="font-[600] text-3xl sm:text-5xl mb-4"
+                    className="mb-4 text-3xl font-[600] sm:text-5xl"
                 />
                 <p className="text-slate-400">{errorMessage}</p>
             </div>
@@ -22,11 +22,11 @@ export default function ErrorMessage({
     }
 
     return (
-        <div className="bg-white rounded-xl p-8 flex flex-col items-center text-center gap-4 mt-6">
+        <div className="mt-6 flex flex-col items-center gap-4 rounded-xl bg-white p-8 text-center">
             <Title
                 type="colorful"
                 text="ERROR"
-                className="font-[600] text-3xl sm:text-5xl"
+                className="text-3xl font-[600] sm:text-5xl"
             />
             <p className="text-slate-400">{errorMessage}</p>
             <Button

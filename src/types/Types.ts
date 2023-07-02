@@ -4,7 +4,7 @@ export type RecipeType = {
     ingredients: string[]
     methods: string[]
     cookingTime: number
-    createdBy: string
+    createdBy: { id: string; displayName: string; photoUrl: string }
 }
 
 export type OptionsType = {
@@ -15,15 +15,15 @@ export type OptionsType = {
     body: string
 }
 
-export type FormInputProps ={
-    id: string,
-    name: string,
-    type: 'text' | 'password' | 'email' | 'number'
+export type FormInputProps = {
+    id: string
+    name: string
+    type: "text" | "password" | "email" | "number"
     placeholder?: string
     required: boolean
     inputClassName: string
     labelClassName?: string
-    label?:string
+    label?: string
 }
 
-export type ToastTypes = 'info' | 'success' | 'warning' | 'error' | 'default'
+export type ToastTypes = "info" | "success" | "warning" | "error" | "default"

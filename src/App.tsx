@@ -5,17 +5,16 @@ import {
     RouterProvider,
     Navigate,
 } from "react-router-dom"
-import Home, { recipesLoader } from "./pages/Home.tsx"
 import RootLayout from "./layout/RootLayout.tsx"
 import PageNotFound from "./pages/PageNotFound.tsx"
-import RecipeDetail from "./pages/RecipeDetail.tsx"
 import Create from "./pages/Create.tsx"
 import Search from "./pages/Search.tsx"
 import { useContext } from "react"
 import { CurrentUserContext } from "./context/CurrentUserContext.tsx"
 import LoginPage from "./pages/Login/LoginPage.tsx"
 import SignUpPage from "./pages/SignUp/SignUpPage.tsx"
-import HomePage from "./pages/HomePage.tsx"
+import HomePage from "./pages/HomePage/HomePage.tsx"
+import RecipeDetailsPage from "./pages/RecipeDetails/RecipeDetailsPage.tsx"
 
 export default function App() {
     const {
@@ -31,7 +30,6 @@ export default function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout />}>
-                {/* <Route index element={<Home />} loader={recipesLoader}/> */}
                 <Route index element={<HomePage/>}/>
 
                 <Route
@@ -44,7 +42,7 @@ export default function App() {
                 />
 
                 <Route path="recipes">
-                    <Route path=":id" element={<RecipeDetail />} />
+                    <Route path=":id" element={<RecipeDetailsPage />} />
                 </Route>
 
                 <Route path="search">

@@ -10,21 +10,23 @@ export default function NothingFound({ item }: { item: string | null }) {
     const { state } = useContext(ThemeContext)
 
     return (
-        <div className="text-center mt-8">
-            <ThemedContainer className="max-w-[75%] flex flex-col gap-3 mt-4">
+        <div className="mt-8 text-center">
+            <ThemedContainer className="mt-4 flex max-w-[75%] flex-col gap-3">
                 <span
-                    className={`flex justify-center text-8xl items-center ${
-                        state.theme === "dark" ? "text-gray-400" : themeColor.text
+                    className={`flex items-center justify-center text-8xl ${
+                        state.theme === "dark"
+                            ? "text-gray-400"
+                            : themeColor.text
                     }`}
                 >
                     <TfiFaceSad />
                 </span>
                 {item ? (
-                    <h2 className="font-semibold text-xl mb-1">
+                    <h2 className="mb-1 text-xl font-semibold">
                         There is no "{item}" recipe
                     </h2>
                 ) : (
-                    <h2 className="font-semibold text-xl mb-1">
+                    <h2 className="mb-1 text-xl font-semibold">
                         There are no such recipes
                     </h2>
                 )}
@@ -36,7 +38,7 @@ export default function NothingFound({ item }: { item: string | null }) {
                     style="fill"
                     type="link"
                     href="/create"
-                    className="px-8 py-3 mt-4 max-w-max mx-auto"
+                    className="mx-auto mt-4 max-w-max px-8 py-3"
                 >
                     CREATE
                 </Button>

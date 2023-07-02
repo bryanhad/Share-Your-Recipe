@@ -17,7 +17,7 @@ export default function LoginProviders() {
     return (
         <>
             {loginProviders.map(provider => (
-                <button className={`${theme === 'dark' ? 'text-slate-300' : 'text-slate-400'} duration-300 text-5xl`} key={provider.providerName} onClick={provider.onClick}>
+                <button type="button" className={`${theme === 'dark' ? 'text-slate-300' : 'text-slate-400'} duration-300 text-5xl`} key={provider.providerName} onClick={provider.onClick}>
                     {provider.icon}
                 </button>
             ))}

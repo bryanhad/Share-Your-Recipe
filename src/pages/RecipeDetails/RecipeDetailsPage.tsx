@@ -1,16 +1,17 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { RecipeType } from "../types/Types"
-import Title from "../components/Title"
+import { RecipeType } from "../../types/Types"
+import Title from "../../components/Title"
 import { doc, getDoc } from "firebase/firestore"
-import { db } from "../firebase/config"
-import { getErrorMessage } from "../lib/getErrorMessage"
-import Loading from "../components/Loading"
-import ErrorMessage from "../components/ErrorMessage"
-import ThemedContainer from "../components/ThemedContainer"
-import ArrayToCommasString from "../components/ArrayToCommasString"
+import { db } from "../../firebase/config"
+import { getErrorMessage } from "../../lib/getErrorMessage"
+import Loading from "../../components/Loading"
+import ErrorMessage from "../../components/ErrorMessage"
+import ThemedContainer from "../../components/ThemedContainer"
+import ArrayToCommasString from "../../components/ArrayToCommasString"
+import CreatorInfo from "./CreatorInfo"
 
-export default function RecipeDetail() {
+export default function RecipeDetailsPage() {
     const { id } = useParams()
     const [recipe, setRecipe] = useState<RecipeType | null>(null)
     const [loading, setLoading] = useState(false)
@@ -59,9 +60,7 @@ export default function RecipeDetail() {
             {recipe && (
                 <ThemedContainer className="p-8 flex flex-col gap-4">
                     <div className="relative w-full lfex justify-center">
-                        <p className="absolute right-0 top-0 ">
-                            Created by: {recipe.createdBy}
-                        </p>
+                        <CreatorInfo recipe={recipe}/>
                         <Title
                             type="colorfulRecipeTitle"
                             text={recipe.title}

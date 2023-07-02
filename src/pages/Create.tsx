@@ -10,34 +10,51 @@ import { AiFillDelete } from "react-icons/ai"
 import { CurrentUserContext } from "../context/CurrentUserContext"
 import { getErrorMessage } from "../lib/getErrorMessage"
 import { ToastContext } from "../context/ToastContext"
+import {AiOutlineClose} from 'react-icons/ai'
 
 export default function Create() {
-    const {state: { currentUser }} = useContext(CurrentUserContext)
+    const {
+        state: { currentUser },
+    } = useContext(CurrentUserContext)
     const { state: themeState } = useContext(ThemeContext)
     const { state, dispatch } = useContext(FormContext)
     const ingredientRef = useRef<HTMLInputElement>(null)
     const methodRef = useRef<HTMLInputElement>(null)
-    // const {notify, ToastContainer} = Toast()
-    const {setToastNotify} = useContext(ToastContext)
+    const { setToastNotify } = useContext(ToastContext)
     let navigate = useNavigate()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            if (state.methods.length === 0 || state.ingredients.length === 0) throw new Error('You have to write atleast 1 method!')
+            if (state.methods.length === 0 || state.ingredients.length === 0)
+                throw new Error("You have to write atleast 1 method!")
             const docRef = await addDoc(collection(db, "recipes"), {
                 ...state,
                 createdAt: serverTimestamp(),
-                createdBy: typeof currentUser?.displayName === 'string' ? currentUser.displayName : 'Anonymous',
+                createdBy: currentUser
+                    ? {
+                          id: currentUser.uid,
+                          displayName: currentUser.displayName,
+                          photoUrl: currentUser.photoURL,
+                      }
+                    : {
+                          id: "unknown",
+                          displayName: "Anonymous",
+                          photoUrl:
+                              "https://cdn.vectorstock.com/i/preview-1x/48/06/image-preview-icon-picture-placeholder-vector-31284806.jpg",
+                      },
             })
-            console.log(docRef)
             dispatch({ type: "CLEAR_FORM_STATE" })
             if (docRef) {
+                setToastNotify({
+                    toastType: "success",
+                    toastMessage: "Recipe has been added!",
+                })
                 navigate("/")
             }
         } catch (err) {
             const errMessage = getErrorMessage(err)
-            setToastNotify({toastType:'error', toastMessage:errMessage})
+            setToastNotify({ toastType: "error", toastMessage: errMessage })
         }
     }
 
@@ -140,11 +157,6 @@ export default function Create() {
                                 : "bg-white outline-slate-200"
                         }`}
                     />
-                    {/* {state.ingredients.length === 0 && (
-                        <p className="italic text-base flex-[3] text-rose-400">
-                            Please specify the ingredients
-                        </p>
-                    )} */}
                     {state.ingredients.length >= 1 && (
                         <div className="flex gap-4 text-base mt-2">
                             <p
@@ -158,7 +170,17 @@ export default function Create() {
                             </p>
                             <div className="flex flex-wrap items-center gap-2">
                                 {state.ingredients.map((ingredient) => (
-                                    <button
+                                    <span
+                                        key={ingredient}
+                                        className={`italic px-1.5 flex gap-1 items-center rounded-md ${
+                                            themeState.theme === "dark"
+                                                ? "bg-gray-500 text-gray-300"
+                                                : `${themeState.color} text-white opacity-70`
+                                        }`}
+                                    >
+                                        {ingredient}
+                                        <button
+                                        type="button"
                                         onClick={() => {
                                             dispatch({
                                                 type: "REMOVE_INGREDIENT",
@@ -166,16 +188,11 @@ export default function Create() {
                                             })
                                             updateIngredientsInput(ingredient)
                                         }}
-                                        key={ingredient}
-                                        type="button"
-                                        className={`italic px-1.5 relative rounded-md ${
-                                            themeState.theme === "dark"
-                                                ? "bg-gray-500 text-gray-300"
-                                                : `${themeState.color} text-white opacity-70`
-                                        }`}
-                                    >
-                                        {ingredient}
-                                    </button>
+                                        className="text-sm p-1">
+                                        <AiOutlineClose/>
+
+                                        </button>
+                                    </span>
                                 ))}
                             </div>
                         </div>
@@ -229,11 +246,8 @@ export default function Create() {
                                 {state.methods.map((method, i) => (
                                     <div
                                         key={i}
-                                        className="flex gap-3 items-center"
+                                        className="flex gap-2"
                                     >
-                                        <p>
-                                            {i + 1}. {method}
-                                        </p>
                                         <button
                                             onClick={() =>
                                                 dispatch({
@@ -241,7 +255,7 @@ export default function Create() {
                                                     payload: method,
                                                 })
                                             }
-                                            className={`rounded-full w-[20px] h-[20px] grid place-content-center text-white/75 ${
+                                            className={`flex-[1] mt-[3px] rounded-full h-[20px] aspect-[1/1] grid place-content-center text-white/75 ${
                                                 themeState.theme === "dark"
                                                     ? "bg-slate-500"
                                                     : themeState.color
@@ -249,6 +263,10 @@ export default function Create() {
                                         >
                                             <AiFillDelete />
                                         </button>
+                                        <span className="flex-[1] text-center">{i+1}.</span>
+                                        <p className="flex-[22] break-words">
+                                            {method}
+                                        </p>
                                     </div>
                                 ))}
                             </div>

@@ -9,8 +9,10 @@ import { RiPencilLine } from "react-icons/ri"
 
 export default function CreateRecipeButton({
     isInBurgerMenu,
+    forBeTheFirstOneToCreate,
 }: {
     isInBurgerMenu: boolean
+    forBeTheFirstOneToCreate?:boolean
 }) {
     const navigate = useNavigate()
     const {
@@ -49,9 +51,9 @@ export default function CreateRecipeButton({
         <Button
             type="button"
             onclick={handleGoToCreatePage}
-            style="outline"
+            style= {forBeTheFirstOneToCreate ? 'fill' : 'outline'}
             href="/create"
-            className="p-2 hidden lg:block"
+            className={`p-2 ${forBeTheFirstOneToCreate ? '' : 'hidden lg:block'}`}
         >
             Create Recipe
         </Button>

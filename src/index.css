@@ -23,3 +23,46 @@
         transform: translateX(0px);
     }
 }
+
+.tool-tip::before, .tool-tip::after {
+    --scale: 0;
+    --tooltip-color: #333;
+    --arrow-size:10px;
+
+    position: absolute;
+    top: -.25rem;
+    left: 50%;
+
+    transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+    transition: 150ms transform;
+    transform-origin: bottom center;
+    /* content: attr(data-tooltip) */
+}
+
+.tool-tip::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+
+    content: attr(data-tooltip);
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
+    text-align: center;
+    width: max-content;
+    min-width: 20px;
+    max-width: 100px;
+    background-color: var(--tooltip-color);
+}
+
+.tool-tip:hover::before,
+.tool-tip:hover::after {
+    --scale: 1;
+}
+
+.tool-tip::after{
+    --translate-y: calc( -1 * (var(--arrow-size) + 2px) );
+
+    content: '';
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-color);
+    transform-origin: top center;
+}
