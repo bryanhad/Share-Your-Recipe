@@ -14,7 +14,7 @@ import PaddingWrapper from "../components/PaddingWrapper"
 import { UserContext } from "../context/UserContext"
 
 export default function Create() {
-    const {userState} = useContext(UserContext)
+    const { userState } = useContext(UserContext)
     const { state: themeState } = useContext(ThemeContext)
     const { state, dispatch } = useContext(FormContext)
     const ingredientRef = useRef<HTMLInputElement>(null)

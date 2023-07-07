@@ -26,13 +26,14 @@ export default function LoguoutButton({
         dispatch,
     } = useContext(UserContext)
     const {setToastNotify} = useContext(ToastContext)
-    const {setNav} = useContext(NavbarContext)
+    const {setNav, setDropDown} = useContext(NavbarContext)
 
     const handleSignOut = () => {
         try {
             signOut(auth)
             dispatch({ type: "LOGOUT" })
             setNav(false)
+            setDropDown(false)
             setToastNotify({toastType:'success', toastMessage:'Logout Successful!'})
             navigate("/")
         } catch (err) {

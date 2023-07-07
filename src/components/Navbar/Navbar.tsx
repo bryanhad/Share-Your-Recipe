@@ -16,7 +16,6 @@ export default function Navbar({ className }: { className?: string }) {
     const { setNav, setDropDown } = useContext(NavbarContext)
 
     const handleLogoClick = () => {
-        console.log('object')
         setNav(false)
         setDropDown(false)
         navigate('/')

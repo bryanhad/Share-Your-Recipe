@@ -6,8 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { getErrorMessage } from "../../../lib/getErrorMessage"
 import Button from "../../../components/Button"
 import updateField from "../../../lib/updateField"
-import EditButton from "../../../components/EditButton"
+import SmallButtonIcon from "../../../components/SmallButtonIcon"
 import { UserContext } from "../../../context/UserContext"
+import { MdModeEditOutline } from "react-icons/md"
 
 const quoteFormSchema = z.object({
     quote: z
@@ -18,9 +19,13 @@ const quoteFormSchema = z.object({
 
 type QuoteFormType = z.infer<typeof quoteFormSchema>
 
-export default function QuoteForm({currentUserQuote}: {currentUserQuote: string | null}) {
+export default function QuoteForm({
+    currentUserQuote,
+}: {
+    currentUserQuote: string | null
+}) {
     const [active, setActive] = useState(false)
-    const {userState} = useContext(UserContext)
+    const { userState } = useContext(UserContext)
     const { setToastNotify } = useContext(ToastContext)
     const {
         handleSubmit,
@@ -92,8 +97,9 @@ export default function QuoteForm({currentUserQuote}: {currentUserQuote: string 
             {currentUserQuote ? (
                 <div className="flex gap-2">
                     <p>{currentUserQuote}</p>
-                    <EditButton
-                        className="border-2 border-slate-300 p-1"
+                    <SmallButtonIcon
+                        icon={<MdModeEditOutline />}
+                        className="border-2 border-slate-300 p-1 bg-white/80 text-slate-400"
                         onClick={() => setActive(true)}
                     />
                 </div>

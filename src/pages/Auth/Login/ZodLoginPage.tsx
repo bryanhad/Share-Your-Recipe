@@ -16,7 +16,7 @@ import GoogleLoginButton from "../../../components/GoogleLoginButton"
 import { UserContext } from "../../../context/UserContext"
 import { getDocumentFirebase } from "../../../lib/getDocumentFromFirebase"
 import { UserDataType } from "../../../types/Types"
-import { doc, serverTimestamp, setDoc } from "firebase/firestore"
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore"
 
 type LoginUserFormType = z.infer<typeof LoginUserFormSchema>
 
@@ -36,15 +36,21 @@ export default function ZodLoginPage() {
         const getResultFromRedirect = async () => {
             const res = await getRedirectResult(auth)
             if (res) {
-                await setDoc(doc(db, 'users', res.user.uid), {
-                    id: res.user.uid,
-                    displayName: res.user.displayName as string,
-                    email: res.user.email as string,
-                    profilePic: res.user.photoURL as string,
-                    createdAt: serverTimestamp(),
-                    coverPic: null,
-                    quote: null
-                })
+                const userDocRef = doc(db, 'users', res.user.uid)
+                const userDocSnap = await getDoc(userDocRef)
+                
+                if (!userDocSnap.exists()) {
+                    await setDoc(doc(db, 'users', res.user.uid), {
+                        id: res.user.uid,
+                        displayName: res.user.displayName as string,
+                        email: res.user.email as string,
+                        profilePic: res.user.photoURL as string,
+                        createdAt: serverTimestamp(),
+                        coverPic: null,
+                        quote: null
+                    })
+                }
+
                 const userData = await getDocumentFirebase<UserDataType>('users', res.user.uid)
                 dispatch({type:'LOGIN', payload: userData})
                 setToastNotify({
@@ -72,7 +78,7 @@ export default function ZodLoginPage() {
             })
         } catch (err) {
             const errMessage = getErrorMessage(err)
-            setToastNotify({ toastType: "error", toastMessage: errMessage })
+            setToastNotify({ toastType: "error", toastMessage: errMessage})
         }
     }
 

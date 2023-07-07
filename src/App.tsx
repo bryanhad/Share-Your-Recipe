@@ -9,22 +9,34 @@ import RootLayout from "./layout/RootLayout.tsx"
 import PageNotFound from "./pages/PageNotFound.tsx"
 import Create from "./pages/Create.tsx"
 import Search from "./pages/Search.tsx"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import HomePage from "./pages/HomePage/HomePage.tsx"
 import RecipeDetailsPage from "./pages/RecipeDetails/RecipeDetailsPage.tsx"
 import MyProfilePage from "./pages/MyProfile/MyProfilePage.tsx"
 import ZodSignUpPage from "./pages/Auth/SignUp/ZodSignUpPage.tsx"
 import ZodLoginPage from "./pages/Auth/Login/ZodLoginPage.tsx"
 import { UserContext } from "./context/UserContext.tsx"
+import getCurrentUserData from "./lib/getCurrentUserData.ts"
 
 export default function App() {
-    const {userState} = useContext(UserContext)
+    const { userState, dispatch } = useContext(UserContext)
+    const { userData } = getCurrentUserData()
+
+    useEffect(() => {
+        if (userData) {
+            dispatch({ type: "LOGIN", payload: userData })
+        }
+    }, [userData])
 
     const RequireAuth = ({ children }: { children: React.ReactElement }) => {
         return userState ? children : <Navigate to={"/login"} />
     }
 
-    const LoggedInCantEnter = ({children}: {children: React.ReactElement}) => {
+    const LoggedInCantEnter = ({
+        children,
+    }: {
+        children: React.ReactElement
+    }) => {
         return userState ? <Navigate to={"/"} /> : children
     }
 

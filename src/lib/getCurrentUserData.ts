@@ -18,31 +18,29 @@ export default function getCurrentUserData() {
     useEffect(() => {
         setLoading(true)
         try {
-            if (!userState) {
-                throw new Error("Current user not found!")
-            }
-    
-            const userDocRef = doc(db, "users", userState.id)
-            const recipesDocRef = query(
-                collection(db, "recipes"),
-                where("createdBy.id", "==", userState.id)
-            )
-    
-            onSnapshot(userDocRef, (doc) => {
-                setUserData(doc.data() as UserDataType)
-            })
-    
-            onSnapshot(recipesDocRef, (snapshot) => {
-                const recipesArr = snapshot.docs.map(
-                    (doc) => ({ id: doc.id, ...doc.data() } as RecipeType)
+            if (userState){
+                const userDocRef = doc(db, "users", userState.id)
+                const recipesDocRef = query(
+                    collection(db, "recipes"),
+                    where("createdBy.id", "==", userState.id)
                 )
-                setUserRecipes(recipesArr)
-                setError(null)
-                setLoading(false)
-            })
+        
+                onSnapshot(userDocRef, (doc) => {
+                    setUserData(doc.data() as UserDataType)
+                })
+        
+                onSnapshot(recipesDocRef, (snapshot) => {
+                    const recipesArr = snapshot.docs.map(
+                        (doc) => ({ id: doc.id, ...doc.data() } as RecipeType)
+                    )
+                    setUserRecipes(recipesArr)
+                    setError(null)
+                    setLoading(false)
+                })
+            }    
         } catch (err) {
                 const errMessage = getErrorMessage(err)
-                setToastNotify({ toastType: "error", toastMessage: errMessage })
+                setToastNotify({ toastType: "error", toastMessage: errMessage})
                 setError(errMessage)
                 setLoading(false)
         }

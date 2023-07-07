@@ -20,6 +20,8 @@ export default function ProfileInfo({
     const { userState } = useContext(UserContext)
     const { setNav } = useContext(NavbarContext)
 
+    console.log(userState?.profilePic)
+
     const handleLoginButton = () => {
         setNav(false)
         navigate("/login")
@@ -30,11 +32,7 @@ export default function ProfileInfo({
             {userState ? (
                 <div className="flex gap-2">
                     {direction === "left" && (
-                        <img
-                            className="h-[40px] w-[40px] rounded-full border-2 border-white/50"
-                            src={userState.profilePic}
-                            alt={userState.displayName}
-                        />
+                        <img className="h-[40px] w-[40px] rounded-full" src={userState.profilePic} alt={userState.displayName} />
                     )}
                     <button
                         onClick={onClick}
@@ -52,11 +50,7 @@ export default function ProfileInfo({
                     </button>
 
                     {direction === "right" && (
-                        <img
-                            className="w-[40px] rounded-full border-2 border-white/50"
-                            src={userState.profilePic}
-                            alt={userState.displayName}
-                        />
+                        <img className="h-[40px] w-[40px] rounded-full" src={userState.profilePic} alt={userState.displayName} />
                     )}
                 </div>
             ) : (

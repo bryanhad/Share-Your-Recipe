@@ -16,7 +16,7 @@ export type OptionsType = {
 }
 
 export type CreateUserFormInputProps = {
-    name: 'username' | 'email' | 'password' | 'confirmPassword'
+    name: "username" | "email" | "password" | "confirmPassword"
     type: "text" | "password" | "email" | "number"
     placeholder?: string
     inputClassName: string
@@ -24,7 +24,7 @@ export type CreateUserFormInputProps = {
     label?: string
 }
 export type LoginUserFormInputProps = {
-    name: 'email' | 'password'
+    name: "email" | "password"
     type: "text" | "password" | "email" | "number"
     placeholder?: string
     inputClassName: string
