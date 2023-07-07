@@ -15,7 +15,7 @@ export default function RootLayout() {
             }`}
         >
             <Navbar className="sticky top-0 z-[10]" />
-            <main className="max-w-[1200px] w-full mx-auto p-6 flex-[1] h-full">
+            <main className="max-w-[1200px] w-full mx-auto flex-[1] h-full">
                 <Outlet />
                 <ToastContainer />
             </main>

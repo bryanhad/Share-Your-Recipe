@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import { AiOutlineUser } from "react-icons/ai"
-import { RiDraftLine } from "react-icons/ri"
+// import { RiDraftLine } from "react-icons/ri"
 import { useNavigate } from "react-router-dom"
-import { CurrentUserContext } from "../../../context/CurrentUserContext"
 import ButtonCanBeClickedWithIcon from "../../ButtonCanBeClickedWithIcon"
 import { NavbarContext } from "../../../context/NavBarContext"
+import { UserContext } from "../../../context/UserContext"
 
 type Props = {
     className: string
@@ -17,7 +17,7 @@ export default function ProfileButtons({
     direction,
     iconClassName,
 }: Props) {
-    const {state: { currentUser }} = useContext(CurrentUserContext)
+    const {userState} = useContext(UserContext)
     const {setNav, setDropDown} = useContext(NavbarContext)
     const navigate = useNavigate()
 
@@ -31,20 +31,20 @@ export default function ProfileButtons({
                 navigate('/my-profile')
             }
         },
-        {
-            text: "My Recipes",
-            icon: <RiDraftLine />,
-            onClick: () => {
-                setNav(false)
-                setDropDown(false)
-                navigate('/my-recipes')
-            }
-        },
+        // {
+        //     text: "My Recipes",
+        //     icon: <RiDraftLine />,
+        //     onClick: () => {
+        //         setNav(false)
+        //         setDropDown(false)
+        //         navigate('/my-recipes')
+        //     }
+        // },
     ]
 
     return (
         <>
-            {currentUser && (
+            {userState && (
                 <div className={className}>
                     {ButtonList.map((button) => (
                         <ButtonCanBeClickedWithIcon

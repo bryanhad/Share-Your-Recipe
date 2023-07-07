@@ -1,14 +1,25 @@
+import useThemeColor from "../../hooks/useThemeColor"
 import { RecipeType } from "../../types/Types"
 
-export default function CreatorInfo({ recipe, className }: { recipe: RecipeType, className?:string }) {
+export default function CreatorInfo({
+    recipe,
+    className,
+}: {
+    recipe: RecipeType
+    className?: string
+}) {
+    const {themeColor} = useThemeColor()
+
     return (
-        <div className={`absolute left-0 top-0 flex items-center gap-2 ${className}`}>
-            <img
-                className="h-[30px] w-[30px] md:h-[40px] md:w-[40px] rounded-full"
-                src={recipe.createdBy.photoUrl}
-                alt={recipe.createdBy.displayName}
-            />
-            <p className="hidden sm:block text-sm lg:text-lg">{recipe.createdBy.displayName}</p>
+        <div
+            className={`tool-tip ${className}`}
+            data-tooltip={recipe.createdBy.displayName.split(' ')[0]}
+        >
+                <img
+                    className="h-[30px] w-[30px] rounded-full border-slate-300"
+                    src={recipe.createdBy.photoUrl}
+                    alt={recipe.createdBy.displayName}
+                />
         </div>
     )
 }

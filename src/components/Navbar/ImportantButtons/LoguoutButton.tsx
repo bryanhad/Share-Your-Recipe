@@ -2,12 +2,12 @@ import { signOut } from "firebase/auth"
 import Button from "../../Button"
 import { auth } from "../../../firebase/config"
 import { useContext } from "react"
-import { CurrentUserContext } from "../../../context/CurrentUserContext"
 import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../../../lib/getErrorMessage"
 import { MdOutlineExitToApp } from "react-icons/md"
 import { ToastContext } from "../../../context/ToastContext"
 import { NavbarContext } from "../../../context/NavBarContext"
+import { UserContext } from "../../../context/UserContext"
 
 type Props = {
     className: string
@@ -22,9 +22,9 @@ export default function LoguoutButton({
 }: Props) {
     const navigate = useNavigate()
     const {
-        state: { currentUser },
+        userState,
         dispatch,
-    } = useContext(CurrentUserContext)
+    } = useContext(UserContext)
     const {setToastNotify} = useContext(ToastContext)
     const {setNav} = useContext(NavbarContext)
 
@@ -43,7 +43,7 @@ export default function LoguoutButton({
 
     return (
         <>
-            {currentUser && (
+            {userState && (
                 <>
                     {inBurgerMenu ? (
                         <>

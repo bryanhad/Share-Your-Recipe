@@ -9,6 +9,7 @@ import { getErrorMessage } from "../lib/getErrorMessage"
 import Loading from "../components/Loading"
 import RecipeCard from "../components/RecipeCard"
 import NothingFound from "../components/NothingFound"
+import PaddingWrapper from "../components/PaddingWrapper"
 
 export default function Search() {
     const [searchParams] = useSearchParams()
@@ -54,13 +55,11 @@ export default function Search() {
         getQueriedDocumentsSnapshot()
     }, [queryTerm])
 
-
-
     return (
-        <div>
+        <PaddingWrapper>
             <Title
                 type="normal"
-                className="text-center text-3xl mb-14"
+                className="mb-14 text-center text-3xl"
                 text={`Recipes including "${queryTerm}"`}
             />
             {error && <ErrorMessage errorMessage={error} />}
@@ -76,6 +75,6 @@ export default function Search() {
                     ))}
                 </div>
             )}
-        </div>
+        </PaddingWrapper>
     )
 }

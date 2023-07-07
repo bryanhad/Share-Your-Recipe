@@ -13,7 +13,7 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
 
     return (
         <ThemedContainer className="relative flex h-[250px] w-[365px] flex-col items-center gap-2 text-center duration-300 hover:scale-[1.05]">
-            <div className="tool-tip absolute right-4 top-4" data-tooltip={recipe.createdBy.displayName}>
+            <div className="tool-tip absolute right-4 top-6" data-tooltip={recipe.createdBy.displayName}>
                 <img
                     className="h-[30px] w-[30px] rounded-full border-slate-300"
                     src={recipe.createdBy.photoUrl}
@@ -23,8 +23,8 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
             <span className="w-full">
                 <Title
                     type="colorfulRecipeTitle"
-                    text={recipe.title}
-                    className="text-3xl w-[77%] mx-auto"
+                    text={recipe.title.length > 17 ? recipe.title.substring(0, 17)+'...' : recipe.title}
+                    className="text-3xl w-[76%] mx-auto"
                 />
                 <p className="py-1 font-[300]">{recipe.cookingTime} minutes</p>
             </span>

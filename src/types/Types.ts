@@ -15,15 +15,34 @@ export type OptionsType = {
     body: string
 }
 
-export type FormInputProps = {
-    id: string
-    name: string
+export type CreateUserFormInputProps = {
+    name: 'username' | 'email' | 'password' | 'confirmPassword'
     type: "text" | "password" | "email" | "number"
     placeholder?: string
-    required: boolean
+    inputClassName: string
+    labelClassName?: string
+    label?: string
+}
+export type LoginUserFormInputProps = {
+    name: 'email' | 'password'
+    type: "text" | "password" | "email" | "number"
+    placeholder?: string
     inputClassName: string
     labelClassName?: string
     label?: string
 }
 
 export type ToastTypes = "info" | "success" | "warning" | "error" | "default"
+
+export interface UserDataType {
+    displayName: string
+    email: string
+    id: string
+    profilePic: string
+    coverPic: string | null
+    quote: string | null
+}
+
+export interface CurrentUserDataWithRecipesType extends UserDataType {
+    recipes: RecipeType[] | []
+}

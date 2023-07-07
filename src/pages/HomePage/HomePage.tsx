@@ -8,6 +8,7 @@ import Loading from "../../components/Loading"
 import ErrorMessage from "../../components/ErrorMessage"
 import BeTheFirstOneToCreate from "./BeTheFirstOneToCreate"
 import RecipeCard from "../../components/RecipeCard"
+import PaddingWrapper from "../../components/PaddingWrapper"
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState<RecipeType[] | []>([])
@@ -41,18 +42,18 @@ export default function HomePage() {
         getRecipes()
     }, [])
     return (
-        <div>
+        <PaddingWrapper>
             {loading && <Loading basicLarge />}
             {error && <ErrorMessage errorMessage={error} noGoHomeButton />}
             {recipes.length === 0 ? (
                 <BeTheFirstOneToCreate />
             ) : (
-                <div className="flex flex-wrap justify-center gap-4">
-                    {recipes.map((recipe) => (
-                        <RecipeCard key={recipe.id} recipe={recipe} />
-                    ))}
-                </div>
+                    <div className="flex flex-wrap justify-center gap-5 pt-4 max-sm:px-2">
+                        {recipes.map((recipe) => (
+                            <RecipeCard key={recipe.id} recipe={recipe} />
+                        ))}
+                    </div>
             )}
-        </div>
+        </PaddingWrapper>
     )
 }

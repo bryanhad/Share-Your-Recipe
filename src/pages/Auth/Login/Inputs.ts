@@ -1,27 +1,24 @@
-import { FormInputProps } from "../../types/Types"
+import { LoginUserFormInputProps } from "../../../types/Types"
 
-const inputClassName = "outline outline-[1px] bg-transparent outline-slate-300 p-2 border-slate-300 rounded-md w-full"
+const inputClassName =
+    "outline outline-[1px] bg-transparent outline-slate-300 p-2 border-slate-300 rounded-md w-full"
 const labelClassName = "font-semibold text-lg w-[110px] cursor-pointer"
 
-export const loginFormInputs: FormInputProps[] = [
+export const loginFormInputs: LoginUserFormInputProps[] = [
     {
-        id: "email",
         name: "email",
         type: "email",
         placeholder: "Enter Email",
-        required: true,
         inputClassName: inputClassName,
         labelClassName: labelClassName,
-        label: 'Email'
+        label: "Email",
     },
     {
-        id: "password",
         name: "password",
         type: "password",
         placeholder: "Enter password",
-        required: true,
         inputClassName: inputClassName,
         labelClassName: labelClassName,
-        label: 'Password'
+        label: "Password",
     },
 ]

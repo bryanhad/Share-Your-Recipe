@@ -10,28 +10,22 @@ import PageNotFound from "./pages/PageNotFound.tsx"
 import Create from "./pages/Create.tsx"
 import Search from "./pages/Search.tsx"
 import { useContext } from "react"
-import { CurrentUserContext } from "./context/CurrentUserContext.tsx"
-import LoginPage from "./pages/Login/LoginPage.tsx"
-import SignUpPage from "./pages/SignUp/SignUpPage.tsx"
 import HomePage from "./pages/HomePage/HomePage.tsx"
 import RecipeDetailsPage from "./pages/RecipeDetails/RecipeDetailsPage.tsx"
 import MyProfilePage from "./pages/MyProfile/MyProfilePage.tsx"
+import ZodSignUpPage from "./pages/Auth/SignUp/ZodSignUpPage.tsx"
+import ZodLoginPage from "./pages/Auth/Login/ZodLoginPage.tsx"
+import { UserContext } from "./context/UserContext.tsx"
 
 export default function App() {
-    const {
-        state: { currentUser },
-    } = useContext(CurrentUserContext)
+    const {userState} = useContext(UserContext)
 
     const RequireAuth = ({ children }: { children: React.ReactElement }) => {
-        return currentUser ? children : <Navigate to={"/login"} />
+        return userState ? children : <Navigate to={"/login"} />
     }
 
-    const LoggedInCantEnter = ({
-        children,
-    }: {
-        children: React.ReactElement
-    }) => {
-        return currentUser ? <Navigate to={"/"} /> : children
+    const LoggedInCantEnter = ({children}: {children: React.ReactElement}) => {
+        return userState ? <Navigate to={"/"} /> : children
     }
 
     const router = createBrowserRouter(
@@ -48,19 +42,20 @@ export default function App() {
                     }
                 />
 
-                <Route path="recipes">
-                    <Route path=":id" element={<RecipeDetailsPage />} />
-                </Route>
-
-                <Route path="search">
-                    <Route index element={<Search />} />
-                </Route>
+                <Route
+                    path="my-profile"
+                    element={
+                        <RequireAuth>
+                            <MyProfilePage />
+                        </RequireAuth>
+                    }
+                />
 
                 <Route
                     path="login"
                     element={
                         <LoggedInCantEnter>
-                            <LoginPage />
+                            <ZodLoginPage />
                         </LoggedInCantEnter>
                     }
                 />
@@ -68,12 +63,18 @@ export default function App() {
                     path="sign-up"
                     element={
                         <LoggedInCantEnter>
-                            <SignUpPage />
+                            <ZodSignUpPage />
                         </LoggedInCantEnter>
                     }
                 />
 
-                <Route path="my-profile" element={<MyProfilePage/>}/>
+                <Route path="recipes">
+                    <Route path=":id" element={<RecipeDetailsPage />} />
+                </Route>
+
+                <Route path="search">
+                    <Route index element={<Search />} />
+                </Route>
 
                 <Route path="*" element={<PageNotFound />} />
             </Route>

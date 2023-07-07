@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import Button from "../../Button"
 import { useNavigate } from "react-router-dom"
-import { CurrentUserContext } from "../../../context/CurrentUserContext"
 import { ToastContext } from "../../../context/ToastContext"
 import ButtonCanBeClickedWithIcon from "../../ButtonCanBeClickedWithIcon"
 import { NavbarContext } from "../../../context/NavBarContext"
 import { RiPencilLine } from "react-icons/ri"
+import { UserContext } from "../../../context/UserContext"
 
 export default function CreateRecipeButton({
     isInBurgerMenu,
@@ -15,15 +15,13 @@ export default function CreateRecipeButton({
     forBeTheFirstOneToCreate?:boolean
 }) {
     const navigate = useNavigate()
-    const {
-        state: { currentUser },
-    } = useContext(CurrentUserContext)
+    const {userState} = useContext(UserContext)
     const { setToastNotify } = useContext(ToastContext)
     const { setNav } = useContext(NavbarContext)
 
     const handleGoToCreatePage = () => {
         navigate("/create")
-        if (!currentUser) {
+        if (!userState) {
             setToastNotify({
                 toastType: "info",
                 toastMessage: "You have to log in to create a Recipe!",
