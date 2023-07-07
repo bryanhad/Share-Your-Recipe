@@ -1,5 +1,7 @@
 import { MdModeEditOutline } from "react-icons/md"
 import { UserDataType } from "../../types/Types"
+import coverBackground from '../../assets/coverBackground.png'
+import noProfilePic from "../../assets/noProfilePic.png"
 
 export default function CoverAndProfilePic({
     className,
@@ -15,7 +17,7 @@ export default function CoverAndProfilePic({
             }`}
             style={{
                 backgroundImage: `url(${
-                    userData.coverPic ? userData.coverPic : "../../assets/coverBackground.png"
+                    userData.coverPic ? userData.coverPic : coverBackground
                 })`,
             }}
         >
@@ -31,7 +33,7 @@ export default function CoverAndProfilePic({
                 <img
                     className="aspect-[1/1] w-[25vw] max-w-[160px]  rounded-full"
                     src={
-                        userData.profilePic ? userData.profilePic : "../../assets/noProfilePic.png"
+                        userData.profilePic ? userData.profilePic : noProfilePic
                     }
                     alt="ProfilePic"
                 />
