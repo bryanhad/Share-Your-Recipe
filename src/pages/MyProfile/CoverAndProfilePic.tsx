@@ -1,7 +1,7 @@
 import { MdModeEditOutline } from "react-icons/md"
 import { UserDataType } from "../../types/Types"
-import coverBackground from '../../assets/coverBackground.png'
-import noProfilePic from "../../assets/noProfilePic.png"
+import coverBackground from '/assets/coverBackground.png'
+import noProfilePic from "/assets/noProfilePic.png"
 
 export default function CoverAndProfilePic({
     className,
