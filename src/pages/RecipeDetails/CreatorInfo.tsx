@@ -1,4 +1,3 @@
-import useThemeColor from "../../hooks/useThemeColor"
 import { RecipeType } from "../../types/Types"
 
 export default function CreatorInfo({
@@ -8,7 +7,6 @@ export default function CreatorInfo({
     recipe: RecipeType
     className?: string
 }) {
-    const {themeColor} = useThemeColor()
 
     return (
         <div
