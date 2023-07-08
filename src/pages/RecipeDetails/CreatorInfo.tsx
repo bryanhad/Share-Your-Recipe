@@ -1,4 +1,5 @@
-import { RecipeType } from "../../types/Types"
+import { getDocumentFirebase } from "../../lib/getDocumentFromFirebase"
+import { RecipeType, UserDataType } from "../../types/Types"
 
 export default function CreatorInfo({
     recipe,
@@ -7,6 +8,7 @@ export default function CreatorInfo({
     recipe: RecipeType
     className?: string
 }) {
+    const {data:recipeOwnerData} = getDocumentFirebase<UserDataType>('users', recipe.createdBy.id)
 
     return (
         <div
@@ -14,8 +16,8 @@ export default function CreatorInfo({
             data-tooltip={recipe.createdBy.displayName.split(' ')[0]}
         >
                 <img
-                    className="h-[30px] w-[30px] rounded-full border-slate-300"
-                    src={recipe.createdBy.photoUrl}
+                    className="h-[30px] w-[30px] object-cover rounded-full border-slate-300"
+                    src={recipeOwnerData?.profilePic}
                     alt={recipe.createdBy.displayName}
                 />
         </div>

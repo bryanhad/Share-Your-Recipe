@@ -1,12 +1,27 @@
-import { doc, getDoc } from "firebase/firestore"
+import { doc, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase/config"
+import { useContext, useEffect, useState } from "react"
+import { getErrorMessage } from "./getErrorMessage"
+import { ToastContext } from "../context/ToastContext"
 
-export const getDocumentFirebase = async <T>(fireCollection:string, fireDocumentId:string) => {
-    const docRef = doc(db, fireCollection, fireDocumentId)
-    const docSnap = await getDoc(docRef)
+export const getDocumentFirebase = <T>(fireCollection:string, fireDocumentId:string) => {
+    const [data, setData] = useState<T | null>(null)
+    const [loading, setLoading] = useState(false)
+    const {setToastNotify} = useContext(ToastContext)
 
-    if (docSnap.exists()) {
-        return docSnap.data() as T
-    }
-    throw new Error(`There is no data from collection ${fireCollection} with document id of ${fireDocumentId}`)
+    useEffect(() => {
+        setLoading(true)
+        try {
+            onSnapshot(doc(db, fireCollection, fireDocumentId), doc => {
+                setData(doc.data() as T)
+            })
+            setLoading(false)
+        } catch (err) {
+            const errMessage = getErrorMessage(err)
+            setToastNotify({toastType: 'error', toastMessage:errMessage})
+            setLoading(false)
+        }
+    }, [])
+
+    return {data, loading}
 }

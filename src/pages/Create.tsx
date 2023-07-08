@@ -34,13 +34,10 @@ export default function Create() {
                     ? {
                           id: userState.id,
                           displayName: userState.displayName,
-                          photoUrl: userState.profilePic,
                       }
                     : {
                           id: "unknown",
                           displayName: "Anonymous",
-                          photoUrl:
-                              "https://cdn.vectorstock.com/i/preview-1x/48/06/image-preview-icon-picture-placeholder-vector-31284806.jpg",
                       },
             })
             dispatch({ type: "CLEAR_FORM_STATE" })

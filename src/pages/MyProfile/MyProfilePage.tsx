@@ -8,26 +8,29 @@ import CoverAndProfilePic from "./customizable/CoverAndProfilePic"
 import getCurrentUserData from "../../lib/getCurrentUserData"
 import QuoteForm from "./customizable/QuoteForm"
 import PaddingWrapper from "../../components/PaddingWrapper"
+import { useContext } from "react"
+import { UserContext } from "../../context/UserContext"
 
 export default function MyProfilePage() {
-    const { userData, userRecipes, loading, error } = getCurrentUserData()
+    const {userState} = useContext(UserContext)
+    const { userRecipes, loading, error } = getCurrentUserData()
 
     return (
         <>
             {loading && <Loading basicLarge iconClassName="mt-[200px]" />}
             {error && <ErrorMessage errorMessage={error} noGoHomeButton />}
-            {userData && (
+            {userState && !loading && (
                 <div className="relative w-full">
-                    <CoverAndProfilePic userData={userData} className="z-[2]" />
+                    <CoverAndProfilePic userData={userState} className="z-[2]" />
                     <section className="relative z-[1] pb-8">
                         <PaddingWrapper>
                             <div className="pt-[8vw] sm:pt-[70px] ">
                                 <ThemedContainer className="mx-auto flex max-w-[500px] flex-col items-center gap-2 px-5 pb-4 pt-2">
                                     <h1 className="font-bold">
-                                        {userData.displayName}
+                                        {userState.displayName}
                                     </h1>
                                     <QuoteForm
-                                        currentUserQuote={userData.quote}
+                                        currentUserQuote={userState.quote}
                                     />
                                 </ThemedContainer>
 

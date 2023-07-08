@@ -50,9 +50,11 @@ export default function ZodLoginPage() {
                         quote: null
                     })
                 }
-
-                const userData = await getDocumentFirebase<UserDataType>('users', res.user.uid)
-                dispatch({type:'LOGIN', payload: userData})
+                const docSnap = await getDoc(doc(db, 'users', res.user.uid))
+                const userData = docSnap.data() as UserDataType
+                if (userData) {
+                    dispatch({type:'LOGIN', payload: userData})
+                }
                 setToastNotify({
                     toastType: "default",
                     toastMessage: `👋 Welcome ${res.user.displayName}!`,
@@ -70,12 +72,14 @@ export default function ZodLoginPage() {
                 data.password
             )
             const userId = userCredentialRes.user.uid
-            const userData = await getDocumentFirebase<UserDataType>('users', userId)
-            dispatch({type:'LOGIN', payload:userData})
-            setToastNotify({
-                toastType: "default",
-                toastMessage: `👋 Welcome ${userData.displayName}!`,
-            })
+            const {data:userData} = getDocumentFirebase<UserDataType>('users', userId)
+            if (userData) {
+                dispatch({type:'LOGIN', payload:userData})
+                setToastNotify({
+                    toastType: "default",
+                    toastMessage: `👋 Welcome ${userData.displayName}!`,
+                })
+            }
         } catch (err) {
             const errMessage = getErrorMessage(err)
             setToastNotify({ toastType: "error", toastMessage: errMessage})

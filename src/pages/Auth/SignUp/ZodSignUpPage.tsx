@@ -15,8 +15,9 @@ import Title from "../../../components/Title"
 import { Link } from "react-router-dom"
 import GoogleLoginButton from "../../../components/GoogleLoginButton"
 import { UserContext } from "../../../context/UserContext"
-import { getDocumentFirebase } from "../../../lib/getDocumentFromFirebase"
 import { UserDataType } from "../../../types/Types"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../../../firebase/config"
 
 export default function ZodSignUpPage() {
     const { setToastNotify } = useContext(ToastContext)
@@ -33,8 +34,11 @@ export default function ZodSignUpPage() {
     const onSubmit: SubmitHandler<CreateUserFormType> = async (data) => {
         try {
             const user = await createUserToFirebase(data)
-            const userData = await getDocumentFirebase<UserDataType>('users', user.uid)
-            dispatch({type:'LOGIN', payload:userData})
+            const docSnap = await getDoc(doc(db, 'users', user.uid))
+            const userData = docSnap.data() as UserDataType
+            if (userData) {
+                dispatch({type:'LOGIN', payload:userData})
+            }
             setToastNotify({
                 toastType: "success",
                 toastMessage: `🙌 Welcome abroad ${user.displayName}!`,

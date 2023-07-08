@@ -1,22 +1,23 @@
 import { useContext } from "react"
-import { RecipeType } from "../types/Types"
+import { RecipeType, UserDataType } from "../types/Types"
 import ArrayToCommasString from "./ArrayToCommasString"
 import Button from "./Button"
 import ThemedContainer from "./ThemedContainer"
 import Title from "./Title"
 import { ThemeContext } from "../context/ThemeContext"
+import { getDocumentFirebase } from "../lib/getDocumentFromFirebase"
+
 
 export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
-    const {
-        state: { theme },
-    } = useContext(ThemeContext)
+    const {state:{theme}} = useContext(ThemeContext)
+    const {data:recipeOwnerData} = getDocumentFirebase<UserDataType>('users', recipe.createdBy.id)
 
     return (
         <ThemedContainer className="relative flex h-[250px] w-[365px] flex-col items-center gap-2 text-center duration-300 hover:scale-[1.05]">
             <div className="tool-tip absolute right-4 top-6" data-tooltip={recipe.createdBy.displayName}>
                 <img
-                    className="h-[30px] w-[30px] rounded-full border-slate-300"
-                    src={recipe.createdBy.photoUrl}
+                    className="h-[30px] w-[30px] object-cover rounded-full border-slate-300"
+                    src={recipeOwnerData?.profilePic}
                     alt=""
                 />
             </div>
